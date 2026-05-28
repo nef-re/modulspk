@@ -8,7 +8,7 @@ export default function HeroCube() {
       syncScroll
       captureWheel={false}
       autoRotate={false}
-      initialRotation={{ x: -28, y: 132 }}
+      initialRotation={{ x: -34, y: 226 }}
       showPanel={false}
       showHint={false}
       showDots={false}

@@ -42,8 +42,10 @@ export default function InteractiveCube({
   const [rotation, setRotation] = useState(initialRotation)
   const [isDragging, setIsDragging] = useState(false)
   const dragRef = useRef({ x: 0, y: 0, rotX: 0, rotY: 0 })
+  const rotationRef = useRef(initialRotation)
   const idleTimer = useRef<ReturnType<typeof setInterval> | null>(null)
   const rafRef = useRef<number | null>(null)
+  const lastScrollYRef = useRef(0)
 
   const setActive = useCallback(
     (index: number) => {
@@ -51,6 +53,7 @@ export default function InteractiveCube({
       if (!isControlled) setInternalIndex(i)
       onActiveChange?.(i)
       setRotation(cubeFaces[i].rotation)
+      rotationRef.current = cubeFaces[i].rotation
     },
     [isControlled, onActiveChange],
   )
@@ -60,6 +63,7 @@ export default function InteractiveCube({
   useEffect(() => {
     if (isControlled && controlledIndex !== undefined) {
       setRotation(cubeFaces[controlledIndex].rotation)
+      rotationRef.current = cubeFaces[controlledIndex].rotation
     }
   }, [isControlled, controlledIndex])
 
@@ -97,28 +101,34 @@ export default function InteractiveCube({
       const vh = window.innerHeight
       if (rect.top > vh || rect.bottom < 0) return
 
-      const progress = Math.max(0, Math.min(1, (vh - rect.top) / (rect.height + vh * 0.3)))
-      const targetX = -28 + progress * 10
-      const targetY = 72 + progress * 220
+      const currentScrollY = window.scrollY
+      const delta = currentScrollY - lastScrollYRef.current
+      if (!delta) return
+      lastScrollYRef.current = currentScrollY
+
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
       rafRef.current = requestAnimationFrame(() => {
-        setRotation({ x: targetX, y: targetY })
-        const normalized = ((targetY % 360) + 360) % 360
+        const nextY = rotationRef.current.y + delta * 0.28
+        const nextX = Math.max(-60, Math.min(36, rotationRef.current.x - delta * 0.08))
+        const nextRotation = { x: nextX, y: nextY }
+        rotationRef.current = nextRotation
+        setRotation(nextRotation)
+
+        // Обновляем активную грань только как индикатор, без "прилипания" к фиксированным углам.
+        const normalized = ((nextY % 360) + 360) % 360
         const snapped = Math.round(normalized / 60) % cubeFaces.length
-        if (snapped !== activeIndex) {
-          if (!isControlled) setInternalIndex(snapped)
-          onActiveChange?.(snapped)
-        }
+        if (!isControlled) setInternalIndex(snapped)
+        onActiveChange?.(snapped)
       })
     }
 
     window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
+    lastScrollYRef.current = window.scrollY
     return () => {
       window.removeEventListener('scroll', onScroll)
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
     }
-  }, [activeIndex, isControlled, isDragging, onActiveChange, syncScroll])
+  }, [isControlled, isDragging, onActiveChange, syncScroll])
 
   useEffect(() => {
     if (!autoRotate || isDragging || isControlled) return undefined
@@ -154,7 +164,9 @@ export default function InteractiveCube({
     const dy = e.clientY - dragRef.current.y
     const rotY = dragRef.current.rotY + dx * 0.4
     const rotX = Math.max(-70, Math.min(40, dragRef.current.rotX - dy * 0.3))
-    setRotation({ x: rotX, y: rotY })
+    const nextRotation = { x: rotX, y: rotY }
+    rotationRef.current = nextRotation
+    setRotation(nextRotation)
 
     const normalized = ((rotY % 360) + 360) % 360
     const snapped = Math.round(normalized / 60) % cubeFaces.length
