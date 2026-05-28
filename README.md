@@ -1,4 +1,4 @@
-# modultomsk.ru
+# modulspk.ru
 
 Сайт ООО «Модуль» — **Next.js 15** (SSG), **Tailwind CSS 4**, **Node.js (Express)** API для заявок.
 
@@ -13,10 +13,10 @@
 
 ## Разработка
 
-**Запускайте команды из корня проекта** `modultomsk-site`, не из папки `dist/`.
+**Запускайте команды из корня проекта** `modulspk-site`, не из папки `dist/`.
 
 ```bash
-cd modultomsk-site
+cd modulspk-site
 npm install
 # при белой странице или ошибках 500:
 Remove-Item -Recurse -Force .next   # PowerShell
@@ -40,7 +40,7 @@ STATIC_EXPORT=1 npm run build
 # файлы в out/
 ```
 
-На production укажите `NEXT_PUBLIC_API_URL=https://api.modultomsk.ru` (или проксируйте `/api` через Nginx).
+На production укажите `NEXT_PUBLIC_API_URL=https://api.modulspk.ru` (или проксируйте `/api` через Nginx).
 
 ## Заявки
 

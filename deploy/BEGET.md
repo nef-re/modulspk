@@ -1,4 +1,4 @@
-# Размещение modultomsk.ru на VPS Beget
+# Размещение modulspk.ru на VPS Beget
 
 ## 1. Сборка на компьютере
 
@@ -20,7 +20,7 @@ STATIC_EXPORT=1 npm run build
 На VPS запустите API (PM2/systemd):
 
 ```bash
-cd /path/to/modultomsk-site
+cd /path/to/modulspk-site
 npm install --omit=dev
 API_PORT=3001 node server/index.js
 ```
@@ -28,7 +28,7 @@ API_PORT=3001 node server/index.js
 В `.env` на фронте (или при сборке):
 
 ```
-NEXT_PUBLIC_API_URL=https://modultomsk.ru
+NEXT_PUBLIC_API_URL=https://modulspk.ru
 ```
 
 Nginx — прокси `/api/` на `http://127.0.0.1:3001`:
@@ -54,7 +54,7 @@ Nginx:
 ```nginx
 server {
     listen 80;
-    server_name modultomsk.ru www.modultomsk.ru;
+    server_name modulspk.ru www.modulspk.ru;
 
     location / {
         proxy_pass http://127.0.0.1:3000;
@@ -77,7 +77,7 @@ STATIC_EXPORT=1 npm run build
 
 ## 5. SSL
 
-Let's Encrypt для `modultomsk.ru` и `www` в панели Beget.
+Let's Encrypt для `modulspk.ru` и `www` в панели Beget.
 
 ## 6. Обновление
 
