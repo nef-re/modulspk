@@ -16,7 +16,8 @@ export default function PageHero({
   title: string
   subtitle?: string
   breadcrumbs?: Crumb[]
-  cta?: { href: string; label: string }
+  /** Передайте `false`, чтобы скрыть кнопку CTA */
+  cta?: { href: string; label: string } | false
 }) {
   return (
     <section className="border-b border-border bg-white pb-12 pt-8 lg:pb-16 lg:pt-10">
@@ -45,7 +46,7 @@ export default function PageHero({
           {subtitle && (
             <p className="mt-5 max-w-2xl text-lg text-text-muted leading-relaxed">{subtitle}</p>
           )}
-          {cta && (
+          {cta !== false && cta && (
             <div className="mt-8">
               <Button href={cta.href}>{cta.label}</Button>
             </div>

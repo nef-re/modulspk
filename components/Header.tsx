@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Logo from '@/components/Logo'
+import MaxContactLink from '@/components/MaxContactLink'
+import PhoneContactLink from '@/components/PhoneContactLink'
 import { Button } from '@/components/ui/Button'
 import { company, estimateCta, navLinks } from '@/lib/site'
 
@@ -31,7 +33,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-[background-color,box-shadow,border-color] duration-200 ${
         scrolled
           ? 'border-border bg-white/95 shadow-[0_2px_16px_rgb(11_31_53/0.06)] backdrop-blur-md'
           : 'border-transparent bg-transparent'
@@ -67,23 +69,24 @@ export default function Header() {
               )
             })}
           </ul>
-          <div className="flex flex-col gap-3 border-t border-border pt-6 lg:hidden">
-            <a href={company.phoneHref} className="text-lg font-bold text-brand">
-              {company.phone}
-            </a>
+          <div className="border-t border-border pt-6 lg:hidden">
             <Button href={estimateCta.href} full>
               {estimateCta.label}
             </Button>
           </div>
         </nav>
 
-        <div className="hidden shrink-0 items-center gap-4 xl:gap-5 lg:flex">
-          <a href={company.phoneHref} className="whitespace-nowrap text-sm font-bold text-text">
-            {company.phone}
-          </a>
+        <div className="hidden shrink-0 items-center gap-2.5 lg:flex">
+          <PhoneContactLink size="sm" />
+          <MaxContactLink size="sm" />
           <Button href={estimateCta.href} size="sm">
             {estimateCta.label}
           </Button>
+        </div>
+
+        <div className="flex shrink-0 items-center gap-2 lg:hidden">
+          <PhoneContactLink size="sm" />
+          <MaxContactLink size="sm" />
         </div>
 
         <button

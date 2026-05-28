@@ -1,0 +1,33 @@
+export const FILE_UPLOAD_LIMITS = {
+  maxFiles: 3,
+  maxFileSizeBytes: 20 * 1024 * 1024,
+  allowedMimeTypes: [
+    'application/pdf',
+    'image/jpeg',
+    'image/png',
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'application/vnd.ms-excel',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'application/zip',
+    'application/x-zip-compressed',
+    'application/vnd.rar',
+    'application/x-rar-compressed',
+    'application/acad',
+    'image/vnd.dwg',
+  ],
+  allowedExtensions: [
+    '.pdf',
+    '.jpg',
+    '.jpeg',
+    '.png',
+    '.doc',
+    '.docx',
+    '.xls',
+    '.xlsx',
+    '.zip',
+    '.rar',
+    '.dwg',
+  ],
+} as const
+

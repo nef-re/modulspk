@@ -17,6 +17,7 @@ export default function InteractiveCube({
   showHint = true,
   showDots = true,
   captureWheel = true,
+  autoRotate = true,
 }: {
   className?: string
   syncScroll?: boolean
@@ -27,6 +28,8 @@ export default function InteractiveCube({
   showDots?: boolean
   /** false — колёсико прокручивает страницу, не грани куба */
   captureWheel?: boolean
+  /** Автоповорот граней (в hero лучше выключить — меньше дёрганий при скролле) */
+  autoRotate?: boolean
 }) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const sceneRef = useRef<HTMLDivElement>(null)
@@ -97,7 +100,7 @@ export default function InteractiveCube({
   }, [goToFace, syncScroll])
 
   useEffect(() => {
-    if (isDragging || isControlled) return undefined
+    if (!autoRotate || isDragging || isControlled) return undefined
     idleTimer.current = setInterval(() => {
       setInternalIndex((prev) => {
         const next = (prev + 1) % cubeFaces.length
@@ -109,7 +112,7 @@ export default function InteractiveCube({
     return () => {
       if (idleTimer.current) clearInterval(idleTimer.current)
     }
-  }, [isDragging, isControlled, onActiveChange])
+  }, [autoRotate, isDragging, isControlled, onActiveChange])
 
   const onPointerDown = (e: React.PointerEvent) => {
     setIsDragging(true)

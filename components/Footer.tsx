@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import Logo from '@/components/Logo'
+import MaxContactLink from '@/components/MaxContactLink'
+import { legal } from '@/lib/legal'
 import { company, estimateCta, navLinks } from '@/lib/site'
 
 export default function Footer() {
@@ -85,6 +87,9 @@ export default function Footer() {
             <a href={company.emailHref} className="block text-footer-muted hover:text-white">
               {company.email}
             </a>
+            <div className="pt-2">
+              <MaxContactLink size="sm" />
+            </div>
             <p className="text-footer-muted leading-relaxed">{company.address}</p>
             <p className="text-footer-muted">{company.hours}</p>
             <Link
@@ -102,12 +107,18 @@ export default function Footer() {
           <p>
             © {year} {company.name}. Все права защищены.
           </p>
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
             <a href={company.siteUrl} className="hover:text-white">
               {company.domain}
             </a>
-            <Link href="/privacy" className="hover:text-white">
-              Политика конфиденциальности
+            <Link href={legal.links.privacy} className="hover:text-white">
+              Политика ПДн
+            </Link>
+            <Link href={legal.links.cookies} className="hover:text-white">
+              Cookie
+            </Link>
+            <Link href={legal.links.consent} className="hover:text-white">
+              Согласие на обработку ПДн
             </Link>
           </div>
         </div>

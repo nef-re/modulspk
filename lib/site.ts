@@ -6,24 +6,96 @@ export const company = {
   domain: 'modulspk.ru',
   siteUrl: 'https://modulspk.ru',
   tagline: 'Вентиляция и электрика под ключ',
-  phone: '+7 (983) 233-97-11',
-  phoneHref: 'tel:+79832339711',
-  phone2: '+7 (3822) 92-38-57',
-  phone2Href: 'tel:+73822923857',
-  email: 'info@modulspk.ru',
-  emailHref: 'mailto:info@modulspk.ru',
-  address: '634507, г. Томск, п. Предтеченск, ул. Мелиоративная, д. 7а',
-  addressShort: 'г. Томск, п. Предтеченск, ул. Мелиоративная, 7а',
+  phone: '+7-913-882-70-03',
+  phoneHref: 'tel:+79138827003',
+  phone2: '+7-983-233-97-11',
+  phone2Href: 'tel:+79832339711',
+  email: 'tsk.modul@mail.ru',
+  emailHref: 'mailto:tsk.modul@mail.ru',
+  address: '634507, г. Томск, п. Предтеченск, ул. Мелиоративная, д. 7',
+  addressShort: 'г. Томск, п. Предтеченск, ул. Мелиоративная, 7',
   hours: 'Пн–Пт: 9:00–18:00',
   inn: '7017089218',
   kpp: '701701001',
   ogrn: '1047000094184',
   okpo: '71729609',
+  /** Иконка звонка для шапки и контактов */
+  phoneIconSrc: '/phone-icon.png',
+  /** Координаты для карты 2ГИС (ул. Мелиоративная, 7, п. Предтеченск) */
+  mapLat: 56.414629,
+  mapLon: 85.043299,
+  mapZoom: 15,
+  map2gisUrl:
+    'https://2gis.ru/tomsk/search/%D0%9C%D0%B5%D0%BB%D0%B8%D0%BE%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D0%B0%D1%8F%207%20%D0%9F%D1%80%D0%B5%D0%B4%D1%82%D0%B5%D1%87%D0%B5%D0%BD%D1%81%D0%BA',
 } as const
 
+export type MessengerChannel = {
+  id: 'max' | 'telegram'
+  label: string
+  phone: string
+  phoneE164: string
+  href: string
+  logoSrc: string
+}
+
+/** MAX — основной мессенджер для связи на сайте. */
+export const maxMessenger: MessengerChannel = {
+  id: 'max',
+  label: 'MAX',
+  phone: '+7 (983) 233-97-11',
+  phoneE164: '+79832339711',
+  href: 'https://max.ru/u/f9LHodD0cOIILEHFwLEOScglviCE9oQ-xzHFv2LNiXWMBwb_5tK53UsGDcc',
+  logoSrc: '/max-messenger.png',
+}
+
+/**
+ * Telegram — быстрое подключение: поставьте `enabled: true` —
+ * логотип снова появится рядом с MAX (нужен `/public/telegram-messenger.svg`).
+ */
+export const telegramMessenger = {
+  enabled: false,
+  id: 'telegram' as const,
+  label: 'Telegram',
+  phone: '+7 (913) 882-70-03',
+  phoneE164: '+79138827003',
+  href: 'https://t.me/+79138827003',
+  logoSrc: '/telegram-messenger.svg',
+}
+
+export function getActiveMessengers(): MessengerChannel[] {
+  const list: MessengerChannel[] = [maxMessenger]
+  if (telegramMessenger.enabled) {
+    list.push({
+      id: telegramMessenger.id,
+      label: telegramMessenger.label,
+      phone: telegramMessenger.phone,
+      phoneE164: telegramMessenger.phoneE164,
+      href: telegramMessenger.href,
+      logoSrc: telegramMessenger.logoSrc,
+    })
+  }
+  return list
+}
+
 export const estimateCta = {
-  href: '/kontakty',
+  href: '/kontakty#zayavka',
   label: 'Рассчитать смету',
+} as const
+
+/** Базовая семантика для метаданных Яндекс/Google. */
+export const seo = {
+  defaultKeywords: [
+    'вентиляция Томск',
+    'монтаж вентиляции Томск',
+    'проектирование вентиляции Томск',
+    'пусконаладка вентиляции',
+    'электромонтажные работы Томск',
+    'проектирование электрики Томск',
+    'вентиляционное оборудование производство',
+    'СМР ПНР Томск',
+    'инженерные системы под ключ',
+    'ООО Модуль Томск',
+  ],
 } as const
 
 export const navLinks = [
@@ -50,7 +122,7 @@ export const cubeFaces: CubeFace[] = [
   {
     id: 'design',
     title: 'Проектирование',
-    subtitle: 'ОВ, ВК, ЭОМ — проектная и рабочая документация',
+    subtitle: 'ОВ, ЭОМ, ЭС — проектная и рабочая документация',
     gradient: 'linear-gradient(160deg, #0052cc 0%, #2684ff 100%)',
     icon: 'design',
     link: '/proektirovanie',
@@ -59,7 +131,7 @@ export const cubeFaces: CubeFace[] = [
   {
     id: 'smr',
     title: 'СМР',
-    subtitle: 'Монтаж систем на объекте под ключ',
+    subtitle: 'Монтаж систем вентиляции и электрики на объекте под ключ',
     gradient: 'linear-gradient(160deg, #003d99 0%, #1a6fd4 100%)',
     icon: 'smr',
     link: '/smr',
@@ -107,7 +179,7 @@ export const services = [
   {
     id: 'design',
     title: 'Проектирование',
-    desc: 'Разработка проектной и рабочей документации ОВ, ВК, ЭОМ с учётом норм и требований заказчика.',
+    desc: 'Разработка проектной и рабочей документации ОВ, ЭОМ, ЭС с учётом норм и требований заказчика.',
     icon: 'design',
     link: '/proektirovanie',
     accent: 'from-[#0052cc] to-[#4c9aff]',
@@ -115,7 +187,7 @@ export const services = [
   {
     id: 'smr',
     title: 'СМР',
-    desc: 'Строительно-монтажные работы: воздуховоды, кабельные линии, щитовое оборудование.',
+    desc: 'Строительно-монтажные работы: воздуховоды, оборудование систем вентиляции, электрооборудование, кабельные линии.',
     icon: 'smr',
     link: '/smr',
     accent: 'from-[#003d99] to-[#2684ff]',
@@ -123,7 +195,7 @@ export const services = [
   {
     id: 'pnr',
     title: 'ПНР',
-    desc: 'Пусконаладочные работы, испытания, сдача систем и исполнительной документации.',
+    desc: 'Пусконаладочные работы, подготовка паспортов, протоколов, исполнительной документации. Сдача объекта.',
     icon: 'pnr',
     link: '/smr',
     accent: 'from-[#0047b3] to-[#69b1ff]',
@@ -147,7 +219,7 @@ export const services = [
   {
     id: 'elec',
     title: 'Электрика',
-    desc: 'Электроснабжение, освещение, слаботочные системы, заземление, ПНР.',
+    desc: 'Электроснабжение, электроосвещение.',
     icon: 'electrics',
     link: '/elektrika',
     accent: 'from-[#001f4d] to-[#4c9aff]',
@@ -186,6 +258,34 @@ export const projects = [
   { title: 'Производственный цех', type: 'Приточно-вытяжная вентиляция', area: '2 800 м²' },
   { title: 'Торговый центр', type: 'Проектирование и монтаж', area: '6 500 м²' },
 ] as const
+
+export type SroMembership = {
+  name: string
+  shortName: string
+  registryNumber: string
+  scope: string
+  site: string
+  note: string
+}
+
+export const sroMemberships: SroMembership[] = [
+  {
+    name: 'Ассоциация «Томское проектное объединение»',
+    shortName: 'Томское проектное объединение',
+    registryNumber: 'СРО-П-023-10092009',
+    scope: 'Саморегулируемая организация в области проектирования',
+    site: 'https://tposro.ru/',
+    note: 'Данные взяты с официального сайта объединения.',
+  },
+  {
+    name: 'Саморегулируемая организация Ассоциация «Томские строители»',
+    shortName: 'СРО «Томские строители»',
+    registryNumber: 'СРО-С-032-31082009',
+    scope: 'Саморегулируемая организация в области строительства',
+    site: 'https://www.sro-npts.ru/',
+    note: 'Данные взяты с официального сайта ассоциации.',
+  },
+]
 
 export const processSteps = [
   { step: '01', title: 'Заявка и выезд', text: 'Обсуждаем задачу, выезжаем на объект, фиксируем требования.' },

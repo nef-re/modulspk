@@ -7,6 +7,7 @@ export default function HeroCube() {
     <InteractiveCube
       syncScroll={false}
       captureWheel={false}
+      autoRotate={false}
       showPanel={false}
       showHint={false}
       showDots={false}

@@ -20,7 +20,7 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
   }
 
   body {
@@ -84,17 +84,16 @@
   }
 
   .hero-section {
-    @apply relative overflow-x-hidden overflow-y-visible;
-    padding-top: max(0.75rem, calc(2.5rem - 3cm));
-    padding-bottom: max(0.75rem, calc(3.5rem - 3cm));
-    overscroll-behavior: auto;
-    touch-action: pan-y;
+    @apply relative isolate overflow-hidden;
+    padding-top: 1.5rem;
+    padding-bottom: 2.5rem;
+    contain: layout style;
   }
 
   @media (min-width: 1024px) {
     .hero-section {
-      padding-top: max(0.75rem, calc(3.5rem - 3cm));
-      padding-bottom: max(0.75rem, calc(5rem - 3cm));
+      padding-top: 2rem;
+      padding-bottom: 3.5rem;
     }
   }
 
@@ -135,7 +134,7 @@
   }
 
   .hero-section__visual {
-    @apply relative flex w-full min-w-0 items-center justify-center overflow-x-clip overflow-y-visible py-2 lg:justify-end lg:pl-6 lg:pr-2;
+    @apply relative flex w-full min-h-0 min-w-0 items-center justify-center overflow-hidden py-2 lg:justify-end lg:pl-6 lg:pr-2;
   }
 }
 
@@ -150,11 +149,11 @@
 .hero-section__visual::before {
   content: '';
   position: absolute;
-  inset: -12% 0 -12% -8%;
+  inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.38;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='86.6' height='50' viewBox='0 0 86.6 50'%3E%3Cpath d='M43.3 0 86.6 25 43.3 50 0 25Z' fill='none' stroke='%230b1f35' stroke-opacity='.09' stroke-width='.65'/%3E%3Cpath d='M43.3 0v50M0 25h86.6' fill='none' stroke='%230b1f35' stroke-opacity='.09' stroke-width='.65'/%3E%3C/svg%3E");
+  opacity: 0.62;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='86.6' height='50' viewBox='0 0 86.6 50'%3E%3Cpath d='M43.3 0 86.6 25 43.3 50 0 25Z' fill='none' stroke='%230b1f35' stroke-opacity='.16' stroke-width='.7'/%3E%3Cpath d='M43.3 0v50M0 25h86.6' fill='none' stroke='%230b1f35' stroke-opacity='.16' stroke-width='.7'/%3E%3C/svg%3E");
   background-size: 86.6px 50px;
   background-position: center;
 }
@@ -163,7 +162,7 @@
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 705px;
+  max-width: 520px;
   margin-left: auto;
   margin-right: 0;
 }
@@ -188,17 +187,26 @@
 
 /* ─── 3D cube ─── */
 .hero-cube .interactive-cube-scene {
-  width: min(100%, 705px);
-  height: min(780px, 72vh);
+  width: min(100%, 520px);
+  height: clamp(300px, 42vw, 480px);
+  max-height: 480px;
   margin-left: auto;
   margin-right: 0;
-  padding-top: 16px;
-  overflow: visible;
+  padding-top: 8px;
+  overflow: hidden;
   transform-style: preserve-3d;
-  perspective: 2025px;
-  perspective-origin: 56% 46%;
+  perspective: 1400px;
+  perspective-origin: 50% 45%;
   cursor: grab;
-  touch-action: pan-y;
+  touch-action: manipulation;
+}
+
+@media (max-width: 1023px) {
+  .hero-cube .interactive-cube-scene {
+    width: min(100%, 400px);
+    height: clamp(280px, 72vw, 360px);
+    max-height: 360px;
+  }
 }
 
 .interactive-cube-scene {
@@ -266,6 +274,32 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
+}
+
+/* Hero cube: компактнее, чтобы не раздувать высоту секции при скролле */
+.hero-cube .interactive-cube__face {
+  width: 260px;
+  height: 260px;
+  margin: -130px 0 0 -130px;
+}
+
+.hero-cube .interactive-cube__face--front {
+  transform: rotateY(0deg) translateZ(130px);
+}
+.hero-cube .interactive-cube__face--back {
+  transform: rotateY(180deg) translateZ(130px);
+}
+.hero-cube .interactive-cube__face--right {
+  transform: rotateY(90deg) translateZ(130px);
+}
+.hero-cube .interactive-cube__face--left {
+  transform: rotateY(-90deg) translateZ(130px);
+}
+.hero-cube .interactive-cube__face--top {
+  transform: rotateX(90deg) translateZ(130px);
+}
+.hero-cube .interactive-cube__face--bottom {
+  transform: rotateX(-90deg) translateZ(130px);
 }
 
 /* Hero cube: свечение с рёбер, без теней */

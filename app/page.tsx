@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import FeatureCard from '@/components/FeatureCard'
 import HeroCube from '@/components/HeroCube'
@@ -8,6 +9,7 @@ import { Button } from '@/components/ui/Button'
 import {
   company,
   estimateCta,
+  seo,
   services,
   stats,
   advantages,
@@ -16,6 +18,13 @@ import {
 } from '@/lib/site'
 
 export const dynamic = 'force-static'
+
+export const metadata: Metadata = {
+  title: 'Главная',
+  description:
+    'Проектирование, монтаж, пусконаладка вентиляции и электрики в Томске. Собственное производство вентиляционного оборудования.',
+  keywords: seo.defaultKeywords,
+}
 
 export default function HomePage() {
   return (
@@ -35,6 +44,10 @@ export default function HomePage() {
             <p className="hero-section__lead">
               {company.name} — проектирование, производство вентиляционного оборудования,
               строительно-монтажные и пусконаладочные работы в Томске и области.
+            </p>
+            <p className="mt-4 max-w-xl text-sm text-text-muted">
+              Выполняем инженерные работы для жилых, коммерческих и производственных объектов с
+              полным циклом: проектирование, СМР, ПНР и сервисное сопровождение.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Button href={estimateCta.href}>{estimateCta.label}</Button>

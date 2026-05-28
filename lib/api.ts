@@ -5,25 +5,22 @@ export function getApiBase(): string {
   return process.env.NEXT_PUBLIC_API_URL ?? ''
 }
 
-export async function submitContact(data: {
-  name: string
-  phone: string
-  email?: string
-  service?: string
-  message?: string
-}) {
+export async function submitContact(formData: FormData) {
   const base = getApiBase()
   const url = base ? `${base}/api/contact` : '/api/contact'
 
   const res = await fetch(url, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
+    body: formData,
   })
 
   const json = await res.json().catch(() => ({}))
   if (!res.ok) {
-    throw new Error(json.error ?? 'Ошибка отправки')
+    const details = json.details as Record<string, string[] | undefined> | undefined
+    const fieldHint = details
+      ? Object.values(details).flat().filter(Boolean)[0]
+      : undefined
+    throw new Error(fieldHint ?? json.error ?? 'Ошибка отправки')
   }
   return json
 }
