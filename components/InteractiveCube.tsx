@@ -18,6 +18,7 @@ export default function InteractiveCube({
   showDots = true,
   captureWheel = true,
   autoRotate = true,
+  initialRotation = cubeFaces[0].rotation,
 }: {
   className?: string
   syncScroll?: boolean
@@ -30,6 +31,7 @@ export default function InteractiveCube({
   captureWheel?: boolean
   /** Автоповорот граней (в hero лучше выключить — меньше дёрганий при скролле) */
   autoRotate?: boolean
+  initialRotation?: { x: number; y: number }
 }) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const sceneRef = useRef<HTMLDivElement>(null)
@@ -37,10 +39,11 @@ export default function InteractiveCube({
   const isControlled = controlledIndex !== undefined
   const activeIndex = isControlled ? controlledIndex : internalIndex
 
-  const [rotation, setRotation] = useState(cubeFaces[0].rotation)
+  const [rotation, setRotation] = useState(initialRotation)
   const [isDragging, setIsDragging] = useState(false)
   const dragRef = useRef({ x: 0, y: 0, rotX: 0, rotY: 0 })
   const idleTimer = useRef<ReturnType<typeof setInterval> | null>(null)
+  const rafRef = useRef<number | null>(null)
 
   const setActive = useCallback(
     (index: number) => {
@@ -82,22 +85,40 @@ export default function InteractiveCube({
 
   useEffect(() => {
     if (!syncScroll) return undefined
-    const section = document.getElementById('cube-scroll-section')
+    const section =
+      document.getElementById('cube-scroll-section') ??
+      sceneRef.current?.closest('section') ??
+      sceneRef.current?.parentElement
     if (!section) return undefined
 
     const onScroll = () => {
+      if (isDragging) return
       const rect = section.getBoundingClientRect()
       const vh = window.innerHeight
       if (rect.top > vh || rect.bottom < 0) return
 
       const progress = Math.max(0, Math.min(1, (vh - rect.top) / (rect.height + vh * 0.3)))
-      const index = Math.min(cubeFaces.length - 1, Math.floor(progress * cubeFaces.length))
-      goToFace(index)
+      const targetX = -28 + progress * 10
+      const targetY = 72 + progress * 220
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
+      rafRef.current = requestAnimationFrame(() => {
+        setRotation({ x: targetX, y: targetY })
+        const normalized = ((targetY % 360) + 360) % 360
+        const snapped = Math.round(normalized / 60) % cubeFaces.length
+        if (snapped !== activeIndex) {
+          if (!isControlled) setInternalIndex(snapped)
+          onActiveChange?.(snapped)
+        }
+      })
     }
 
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [goToFace, syncScroll])
+    onScroll()
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
+    }
+  }, [activeIndex, isControlled, isDragging, onActiveChange, syncScroll])
 
   useEffect(() => {
     if (!autoRotate || isDragging || isControlled) return undefined
@@ -115,6 +136,8 @@ export default function InteractiveCube({
   }, [autoRotate, isDragging, isControlled, onActiveChange])
 
   const onPointerDown = (e: React.PointerEvent) => {
+    if (!e.isPrimary) return
+    if (e.pointerType === 'mouse' && e.button !== 0) return
     setIsDragging(true)
     dragRef.current = {
       x: e.clientX,
@@ -126,7 +149,7 @@ export default function InteractiveCube({
   }
 
   const onPointerMove = (e: React.PointerEvent) => {
-    if (!isDragging) return
+    if (!isDragging || !e.isPrimary) return
     const dx = e.clientX - dragRef.current.x
     const dy = e.clientY - dragRef.current.y
     const rotY = dragRef.current.rotY + dx * 0.4
@@ -142,6 +165,7 @@ export default function InteractiveCube({
   }
 
   const onPointerUp = (e: React.PointerEvent) => {
+    if (!e.isPrimary) return
     setIsDragging(false)
     e.currentTarget.releasePointerCapture(e.pointerId)
     goToFace(activeIndex)

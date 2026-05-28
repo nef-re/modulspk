@@ -187,6 +187,8 @@
 
 /* ─── 3D cube ─── */
 .hero-cube .interactive-cube-scene {
+  --hero-cube-face-size: 260px;
+  --hero-cube-half: 130px;
   width: min(100%, 520px);
   height: clamp(300px, 42vw, 480px);
   max-height: 480px;
@@ -198,14 +200,25 @@
   perspective: 1400px;
   perspective-origin: 50% 45%;
   cursor: grab;
-  touch-action: manipulation;
+  touch-action: none;
 }
 
 @media (max-width: 1023px) {
+  .hero-section__visual {
+    overflow: visible;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
   .hero-cube .interactive-cube-scene {
-    width: min(100%, 400px);
-    height: clamp(280px, 72vw, 360px);
-    max-height: 360px;
+    --hero-cube-face-size: 220px;
+    --hero-cube-half: 110px;
+    width: min(100%, 320px);
+    height: clamp(260px, 72vw, 340px);
+    max-height: 340px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    overflow: visible;
   }
 }
 
@@ -278,28 +291,28 @@
 
 /* Hero cube: компактнее, чтобы не раздувать высоту секции при скролле */
 .hero-cube .interactive-cube__face {
-  width: 260px;
-  height: 260px;
-  margin: -130px 0 0 -130px;
+  width: var(--hero-cube-face-size);
+  height: var(--hero-cube-face-size);
+  margin: calc(-1 * var(--hero-cube-half)) 0 0 calc(-1 * var(--hero-cube-half));
 }
 
 .hero-cube .interactive-cube__face--front {
-  transform: rotateY(0deg) translateZ(130px);
+  transform: rotateY(0deg) translateZ(var(--hero-cube-half));
 }
 .hero-cube .interactive-cube__face--back {
-  transform: rotateY(180deg) translateZ(130px);
+  transform: rotateY(180deg) translateZ(var(--hero-cube-half));
 }
 .hero-cube .interactive-cube__face--right {
-  transform: rotateY(90deg) translateZ(130px);
+  transform: rotateY(90deg) translateZ(var(--hero-cube-half));
 }
 .hero-cube .interactive-cube__face--left {
-  transform: rotateY(-90deg) translateZ(130px);
+  transform: rotateY(-90deg) translateZ(var(--hero-cube-half));
 }
 .hero-cube .interactive-cube__face--top {
-  transform: rotateX(90deg) translateZ(130px);
+  transform: rotateX(90deg) translateZ(var(--hero-cube-half));
 }
 .hero-cube .interactive-cube__face--bottom {
-  transform: rotateX(-90deg) translateZ(130px);
+  transform: rotateX(-90deg) translateZ(var(--hero-cube-half));
 }
 
 /* Hero cube: свечение с рёбер, без теней */
@@ -383,6 +396,12 @@
 }
 .interactive-cube__face--bottom {
   transform: rotateX(-90deg) translateZ(180px);
+}
+
+.interactive-cube__face--top .cube-face-image,
+.interactive-cube__face--bottom .cube-face-image {
+  transform: rotate(180deg);
+  transform-origin: 50% 50%;
 }
 
 .interactive-cube__shadow {
