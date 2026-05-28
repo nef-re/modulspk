@@ -1,4 +1,5 @@
 import { FILE_UPLOAD_LIMITS } from '@/lib/contact-upload-config'
+import { sendContactEmail } from '@/lib/contact-mailer'
 import { isLikelySpam, parseContactBody, saveContactLead, saveUploadedFiles } from '@/lib/contact-lead'
 
 export const runtime = 'nodejs'
@@ -83,6 +84,7 @@ export async function POST(request: Request) {
 
     const attachments = await saveUploadedFiles(files)
     await saveContactLead(parsed.data, { ip, attachments })
+    await sendContactEmail({ payload: parsed.data, ip, files })
     return Response.json({ ok: true, message: 'Заявка принята' }, { status: 201 })
   } catch (err) {
     console.error('[contact]', err)

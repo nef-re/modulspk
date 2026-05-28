@@ -47,6 +47,17 @@ STATIC_EXPORT=1 npm run build
 POST `/api/contact` — тело JSON: `name`, `phone`, `email?`, `service?`, `message?`.  
 Сохранение в `server/data/leads.jsonl`.
 
+Также заявка отправляется на `info@modulspk.ru` с темой `Форма ОС [modulspk.ru]`.
+
+Для отправки email настройте переменные окружения на сервере:
+
+- `SMTP_HOST`
+- `SMTP_PORT`
+- `SMTP_SECURE` (`true`/`false`, обычно `true` для 465)
+- `SMTP_USER`
+- `SMTP_PASS`
+- `SMTP_FROM` (опционально; если не задан, используется `SMTP_USER`)
+
 ## Контакты на сайте
 
 Редактируйте `lib/site.ts` перед сборкой.
