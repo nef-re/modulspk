@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <rect width="400" height="400" fill="#F5C400"/>
+  <g fill="#0065FF" stroke="#0065FF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M118 168c0-38 32-58 82-58s82 20 82 58v14H118v-14z"/>
+    <path fill="#0052CC" stroke="none" d="M118 182h164v18c0 22-37 34-82 34s-82-12-82-34v-18z"/>
+    <rect fill="#4C9AFF" stroke="none" x="168" y="118" width="64" height="12" rx="4"/>
+    <rect fill="#0065FF" stroke="none" x="72" y="228" width="256" height="56" rx="8"/>
+    <path fill="none" d="M88 244h32M120 244h32M152 244h32M184 244h32M216 244h32M248 244h32M280 244h32"/>
+    <rect fill="#0052CC" stroke="none" x="56" y="240" width="28" height="32" rx="4"/>
+    <rect fill="#0052CC" stroke="none" x="316" y="240" width="28" height="32" rx="4"/>
+    <path fill="none" stroke-width="12" d="M200 96c-48 0-72 28-72 56M128 152c-20 32-8 64 24 76"/>
+    <circle fill="#0052CC" stroke="none" cx="152" cy="232" r="14"/>
+  </g>
+  <text x="200" y="348" text-anchor="middle" font-family="system-ui, Arial, sans-serif" font-size="44" font-weight="800" fill="#0B1F35" letter-spacing="0.08em">&#1057;&#1052;&#1056;</text>
+</svg>
