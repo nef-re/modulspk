@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     template: `%s | ${company.shortName}`,
   },
   description: `${company.name} — проектирование, СМР, ПНР, производство. Вентиляция и электрика в ${company.city}.`,
-  keywords: seo.defaultKeywords,
+  keywords: [...seo.defaultKeywords],
   category: 'business',
   alternates: { canonical: company.siteUrl },
   robots: {

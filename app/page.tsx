@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   title: 'Главная',
   description:
     'Проектирование, монтаж, пусконаладка вентиляции и электрики в Томске. Собственное производство вентиляционного оборудования.',
-  keywords: seo.defaultKeywords,
+  keywords: [...seo.defaultKeywords],
 }
 
 export default function HomePage() {
