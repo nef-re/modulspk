@@ -1,10 +1,5 @@
-import {
-  FILE_UPLOAD_LIMITS,
-  isLikelySpam,
-  parseContactBody,
-  saveContactLead,
-  saveUploadedFiles,
-} from '@/lib/contact-lead'
+import { FILE_UPLOAD_LIMITS } from '@/lib/contact-upload-config'
+import { isLikelySpam, parseContactBody, saveContactLead, saveUploadedFiles } from '@/lib/contact-lead'
 
 export const runtime = 'nodejs'
 
