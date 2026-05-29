@@ -1,28 +1,46 @@
 import type { Metadata } from 'next'
+import JsonLd from '@/components/JsonLd'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
 import StatCounter from '@/components/StatCounter'
-import { company, stats, advantages, sroMemberships } from '@/lib/site'
+import { aboutPlainText, company, stats, advantages, sroMemberships } from '@/lib/site'
+import { breadcrumbJsonLd } from '@/lib/structured-data'
 
 export const dynamic = 'force-static'
 
+const breadcrumbs = [
+  { href: '/', label: 'Главная' },
+  { href: '/o-kompanii', label: 'О компании' },
+] as const
+
 export const metadata: Metadata = {
-  title: 'О компании',
-  description: `Инженерная компания в ${company.city}: вентиляция, электрика и собственное производство.`,
+  title: 'О компании — подрядчик по вентиляции и электрике в Томске',
+  description: `ООО «Модуль» — инженерная компания в ${company.city}: монтаж вентиляции и электрики, СРО, 200+ объектов, собственное производство.`,
 }
 
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd([...breadcrumbs])} />
       <PageHero
         label="О компании"
-        title={company.name}
-        subtitle={`Инженерная компания в ${company.city}: вентиляция, электрика и собственное производство.`}
-        breadcrumbs={[
-          { href: '/', label: 'Главная' },
-          { href: '/o-kompanii', label: 'О компании' },
-        ]}
+        title={`${company.name} — вентиляция и электрика в Томске`}
+        subtitle="Инженерный подрядчик: проектирование, СМР, ПНР и собственное производство вентиляционного оборудования."
+        breadcrumbs={[...breadcrumbs]}
       />
+
+      <section className="border-b border-border bg-white py-12 lg:py-16">
+        <div className="container-site max-w-3xl">
+          <Reveal>
+            <h2 className="text-xl font-bold lg:text-2xl">{aboutPlainText.title}</h2>
+            <div className="mt-6 space-y-4 text-sm leading-relaxed text-text-muted lg:text-base">
+              {aboutPlainText.paragraphs.map((paragraph) => (
+                <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
 
       <section className="py-20">
         <div className="container-site space-y-12">
@@ -49,7 +67,9 @@ export default function AboutPage() {
       <section className="bg-bg py-20">
         <div className="container-site">
           <Reveal>
-            <h2 className="mb-12 text-center text-3xl font-bold">Наши ценности</h2>
+            <h2 className="mb-12 text-center text-3xl font-bold">
+              Преимущества инженерного подрядчика в Томске
+            </h2>
           </Reveal>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {advantages.map((item, i) => (
@@ -111,7 +131,7 @@ export default function AboutPage() {
       <section className="py-20">
         <div className="container-site max-w-3xl prose prose-slate">
           <Reveal>
-            <h2 className="text-2xl font-bold">География работ</h2>
+            <h2 className="text-2xl font-bold">География работ: Томск и область</h2>
             <p className="mt-4 text-text-muted">
               Основной регион — Томск и Томская область. Выполняем проекты для жилых комплексов,
               офисов, торговых центров, производственных и складских помещений. Готовы выехать на

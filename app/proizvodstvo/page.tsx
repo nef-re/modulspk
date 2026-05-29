@@ -1,14 +1,20 @@
 import type { Metadata } from 'next'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
+import ServicePageExtras from '@/components/ServicePageExtras'
 import { Button } from '@/components/ui/Button'
 
 export const dynamic = 'force-static'
 
+const SERVICE_DESCRIPTION =
+  'ООО «Модуль» — производство вентиляционного оборудования в Томске: установки, воздуховоды, клапаны, шумоглушители, нестандартные решения.'
+
 export const metadata: Metadata = {
-  title: 'Производство',
-  description: 'Вентиляционное оборудование собственного производства в Томске.',
+  title: 'Производство вентиляционного оборудования в Томске',
+  description: SERVICE_DESCRIPTION,
 }
+
+const PAGE_H1 = 'Производство вентиляционного оборудования в Томске'
 
 const products = [
   'Вентиляционные установки приточные и приточно-вытяжные',
@@ -24,8 +30,8 @@ export default function ProductionPage() {
     <>
       <PageHero
         label="Производство"
-        title="Вентиляционное оборудование"
-        subtitle="Собственное производство в Томске — контроль качества, гибкие сроки и индивидуальные решения."
+        title={PAGE_H1}
+        subtitle="Завод в Томске: приточные установки, воздуховоды, клапаны — контроль качества и сроков изготовления."
         breadcrumbs={[
           { href: '/', label: 'Главная' },
           { href: '/proizvodstvo', label: 'Производство' },
@@ -37,7 +43,9 @@ export default function ProductionPage() {
           <Reveal>
             <div>
               <span className="section-label">Завод</span>
-              <h2 className="mt-2 text-3xl font-bold">От чертежа до отгрузки</h2>
+              <h2 className="mt-2 text-3xl font-bold">
+                Изготовление вентиляционного оборудования в Томске
+              </h2>
               <p className="mt-4 text-text-muted">
                 Изготавливаем вентиляционное оборудование по типовым и индивидуальным проектам.
                 Собственный цех металлообработки, покраски и сборки позволяет выполнять заказы в
@@ -86,6 +94,17 @@ export default function ProductionPage() {
           </Reveal>
         </div>
       </section>
+
+      <ServicePageExtras
+        path="/proizvodstvo"
+        serviceName={PAGE_H1}
+        serviceDescription={SERVICE_DESCRIPTION}
+        breadcrumbs={[
+          { href: '/', label: 'Главная' },
+          { href: '/proizvodstvo', label: 'Производство' },
+        ]}
+        faqKey="proizvodstvo"
+      />
     </>
   )
 }

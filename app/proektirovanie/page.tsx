@@ -2,13 +2,19 @@ import type { Metadata } from 'next'
 import FeatureCard from '@/components/FeatureCard'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
+import ServicePageExtras from '@/components/ServicePageExtras'
 
 export const dynamic = 'force-static'
 
+const SERVICE_DESCRIPTION =
+  'ООО «Модуль» — проектирование ОВ и ЭОМ в Томске: вентиляция, электрика, сметы, экспертиза, авторский надзор.'
+
 export const metadata: Metadata = {
-  title: 'Проектирование',
-  description: 'Проектирование систем вентиляции, кондиционирования и электроснабжения в Томске.',
+  title: 'Проектирование вентиляции и электрики (ОВ, ЭОМ) в Томске',
+  description: SERVICE_DESCRIPTION,
 }
+
+const PAGE_H1 = 'Проектирование вентиляции и электрики (ОВ, ЭОМ) в Томске'
 
 const items = [
   {
@@ -39,8 +45,8 @@ export default function DesignPage() {
     <>
       <PageHero
         label="Проектирование"
-        title="Проектная документация ОВ, ВК и ЭОМ"
-        subtitle="Разрабатываем решения с учётом норм СП, ПУЭ и требований заказчика. Согласуем смету и сроки до начала СМР."
+        title={PAGE_H1}
+        subtitle="Проектная и рабочая документация ОВ и ЭОМ по нормам СП и ПУЭ — смета и сроки до начала СМР."
         breadcrumbs={[
           { href: '/', label: 'Главная' },
           { href: '/proektirovanie', label: 'Проектирование' },
@@ -52,7 +58,9 @@ export default function DesignPage() {
           <Reveal>
             <div>
               <span className="section-label">О направлении</span>
-              <h2 className="mt-3 text-2xl font-bold lg:text-3xl">Точные решения до монтажа</h2>
+              <h2 className="mt-3 text-2xl font-bold lg:text-3xl">
+                Проектирование инженерных систем ОВ и ЭОМ в Томске
+              </h2>
               <p className="mt-4 text-text-muted leading-relaxed">
                 Проектный отдел ООО «Модуль» выполняет полный цикл проектирования инженерных систем
                 для коммерческих, промышленных и жилых объектов в Томске и области.
@@ -78,7 +86,9 @@ export default function DesignPage() {
       <section className="border-t border-border bg-white py-16 lg:py-20">
         <div className="container-site">
           <Reveal>
-            <h2 className="mb-10 text-center text-2xl font-bold lg:text-3xl">Этапы проектирования</h2>
+            <h2 className="mb-10 text-center text-2xl font-bold lg:text-3xl">
+              Этапы проектирования вентиляции и электрики
+            </h2>
           </Reveal>
           <div className="grid gap-6 sm:grid-cols-3">
             {items.map((item, i) => (
@@ -87,6 +97,17 @@ export default function DesignPage() {
           </div>
         </div>
       </section>
+
+      <ServicePageExtras
+        path="/proektirovanie"
+        serviceName={PAGE_H1}
+        serviceDescription={SERVICE_DESCRIPTION}
+        breadcrumbs={[
+          { href: '/', label: 'Главная' },
+          { href: '/proektirovanie', label: 'Проектирование' },
+        ]}
+        faqKey="proektirovanie"
+      />
     </>
   )
 }

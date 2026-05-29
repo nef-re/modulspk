@@ -2,13 +2,19 @@ import type { Metadata } from 'next'
 import FeatureCard from '@/components/FeatureCard'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
+import ServicePageExtras from '@/components/ServicePageExtras'
 
 export const dynamic = 'force-static'
 
+const SERVICE_DESCRIPTION =
+  'ООО «Модуль» — проектирование и монтаж вентиляции в Томске: ОВ, дымоудаление, кондиционирование, ПНР, собственное производство оборудования.'
+
 export const metadata: Metadata = {
-  title: 'Вентиляция',
-  description: 'Проектирование и монтаж систем вентиляции и кондиционирования в Томске.',
+  title: 'Монтаж и проектирование вентиляции в Томске',
+  description: SERVICE_DESCRIPTION,
 }
+
+const PAGE_H1 = 'Монтаж и проектирование вентиляции в Томске'
 
 const items = [
   {
@@ -39,8 +45,8 @@ export default function VentilationPage() {
     <>
       <PageHero
         label="Вентиляция"
-        title="Системы вентиляции и кондиционирования"
-        subtitle="Проектирование и строительно-монтажные работы с применением собственного оборудования."
+        title={PAGE_H1}
+        subtitle="Приточно-вытяжная вентиляция, кондиционирование, дымоудаление — проект, СМР и ПНР с собственным оборудованием."
         breadcrumbs={[
           { href: '/', label: 'Главная' },
           { href: '/ventilyaciya', label: 'Вентиляция' },
@@ -52,7 +58,9 @@ export default function VentilationPage() {
           <Reveal>
             <div>
               <span className="section-label">О направлении</span>
-              <h2 className="mt-2 text-3xl font-bold">Комфортный микроклимат на объекте</h2>
+              <h2 className="mt-2 text-3xl font-bold">
+                Системы вентиляции и кондиционирования в Томске
+              </h2>
               <p className="mt-4 text-text-muted">
                 Проектируем и монтируем вентиляционные системы с учётом назначения помещений, норм
                 СП 60.13330 и энергоэффективности. Используем оборудование собственного производства —
@@ -79,7 +87,9 @@ export default function VentilationPage() {
       <section className="bg-bg py-20">
         <div className="container-site">
           <Reveal>
-            <h2 className="mb-12 text-center text-3xl font-bold">Этапы работ</h2>
+            <h2 className="mb-12 text-center text-3xl font-bold">
+              Этапы монтажа и проектирования вентиляции
+            </h2>
           </Reveal>
           <div className="grid gap-6 sm:grid-cols-3">
             {items.map((item, i) => (
@@ -88,6 +98,17 @@ export default function VentilationPage() {
           </div>
         </div>
       </section>
+
+      <ServicePageExtras
+        path="/ventilyaciya"
+        serviceName={PAGE_H1}
+        serviceDescription={SERVICE_DESCRIPTION}
+        breadcrumbs={[
+          { href: '/', label: 'Главная' },
+          { href: '/ventilyaciya', label: 'Вентиляция' },
+        ]}
+        faqKey="ventilyaciya"
+      />
     </>
   )
 }

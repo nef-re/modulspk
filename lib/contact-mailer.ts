@@ -47,7 +47,7 @@ export async function sendContactEmail(args: {
   const { payload, ip, files } = args
 
   const text = [
-    'Новая заявка с формы обратной связи.',
+    payload.message?.trim() || '-',
     '',
     `Имя: ${payload.name || '-'}`,
     `Телефон: ${payload.phone || '-'}`,

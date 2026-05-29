@@ -29,9 +29,8 @@
     color: #0b1f35;
     font-family: var(--font-manrope), system-ui, sans-serif;
     line-height: 1.6;
-    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    @apply bg-bg text-text font-sans antialiased overflow-x-hidden leading-relaxed;
+    @apply bg-bg text-text font-sans antialiased leading-relaxed;
   }
 
   img,

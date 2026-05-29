@@ -4,7 +4,13 @@ import CookieConsent from '@/components/CookieConsent'
 import Footer from '@/components/Footer'
 import GradientOrbs from '@/components/GradientOrbs'
 import Header from '@/components/Header'
+import JsonLd from '@/components/JsonLd'
 import { company, seo } from '@/lib/site'
+import {
+  hvacBusinessJsonLd,
+  organizationJsonLd,
+  webSiteJsonLd,
+} from '@/lib/structured-data'
 import './globals.css'
 
 const manrope = Manrope({
@@ -17,10 +23,10 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL(company.siteUrl),
   title: {
-    default: `${company.name} — вентиляция и электрика | ${company.city}`,
+    default: `Монтаж вентиляции и электрики в Томске — проект, СМР, ПНР | ${company.shortName}`,
     template: `%s | ${company.shortName}`,
   },
-  description: `${company.name} — проектирование, СМР, ПНР, производство. Вентиляция и электрика в ${company.city}.`,
+  description: `${company.name} — проектирование, монтаж и пусконаладка вентиляции и электрики в Томске. Собственное производство вентиляционного оборудования.`,
   keywords: [...seo.defaultKeywords],
   category: 'business',
   alternates: { canonical: company.siteUrl },
@@ -40,13 +46,13 @@ export const metadata: Metadata = {
     locale: 'ru_RU',
     url: company.siteUrl,
     siteName: company.shortName,
-    title: `${company.name} — вентиляция и электрика | ${company.city}`,
-    description: `${company.name} — проектирование, СМР, ПНР, производство. Вентиляция и электрика в ${company.city}.`,
+    title: `Монтаж вентиляции и электрики в Томске | ${company.shortName}`,
+    description: `${company.name} — проектирование, монтаж и ПНР вентиляции и электрики в Томске и области.`,
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${company.name} — вентиляция и электрика`,
-    description: `Проектирование, монтаж, ПНР, производство в ${company.city}.`,
+    title: `Вентиляция и электрика в Томске — ${company.shortName}`,
+    description: `Проектирование, монтаж и ПНР вентиляции и электрики в Томске.`,
   },
   icons: {
     icon: '/favicon.png',
@@ -55,55 +61,18 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const orgLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: company.name,
-    url: company.siteUrl,
-    telephone: company.phone,
-    email: company.email,
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: company.address,
-      addressLocality: company.city,
-      addressCountry: 'RU',
-    },
-  }
-
-  const localBusinessLd = {
-    '@context': 'https://schema.org',
-    '@type': 'HVACBusiness',
-    name: company.name,
-    url: company.siteUrl,
-    image: `${company.siteUrl}/favicon.png`,
-    telephone: company.phone,
-    email: company.email,
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: company.address,
-      addressLocality: company.city,
-      postalCode: '634507',
-      addressCountry: 'RU',
-    },
-    areaServed: ['Томск', 'Томская область'],
-    openingHours: 'Mo-Fr 09:00-18:00',
-  }
-
   return (
     <html lang="ru" className={manrope.variable}>
       <body className="flex min-h-screen flex-col">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessLd) }}
-        />
+        <JsonLd data={organizationJsonLd()} />
+        <JsonLd data={hvacBusinessJsonLd()} />
+        <JsonLd data={webSiteJsonLd()} />
         <GradientOrbs />
         <Header />
-        <main className="flex-1 pt-[var(--header-h)]">{children}</main>
-        <Footer />
+        <div className="flex min-h-0 flex-1 flex-col overflow-x-clip">
+          <main className="flex-1 pt-[var(--header-h)]">{children}</main>
+          <Footer />
+        </div>
         <CookieConsent />
       </body>
     </html>

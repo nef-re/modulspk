@@ -2,27 +2,39 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import ContactForm from '@/components/ContactForm'
 import DgisMap from '@/components/DgisMap'
+import FaqSection from '@/components/FaqSection'
+import JsonLd from '@/components/JsonLd'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
-import { company, maxMessenger } from '@/lib/site'
+import { company, faqByPage, maxMessenger } from '@/lib/site'
+import { breadcrumbJsonLd, faqJsonLd } from '@/lib/structured-data'
 
 export const dynamic = 'force-static'
 
+const CONTACTS_DESCRIPTION =
+  'Контакты ООО «Модуль» в Томске: адрес, телефоны +7-913-882-70-03 и +7-983-233-97-11, email info@modulspk.ru, форма заявки на смету.'
+
+const breadcrumbs = [
+  { href: '/', label: 'Главная' },
+  { href: '/kontakty', label: 'Контакты' },
+] as const
+
 export const metadata: Metadata = {
-  title: 'Контакты',
-  description: 'Контакты ООО «Модуль» — Томск, телефон, адрес, реквизиты.',
+  title: 'Контакты — заказать монтаж вентиляции в Томске',
+  description: CONTACTS_DESCRIPTION,
 }
 
 export default function ContactsPage() {
+  const faq = faqByPage.kontakty
+
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd([...breadcrumbs])} />
+      <JsonLd data={faqJsonLd([...faq])} />
       <PageHero
         label="Контакты"
-        title="Свяжитесь с нами"
-        breadcrumbs={[
-          { href: '/', label: 'Главная' },
-          { href: '/kontakty', label: 'Контакты' },
-        ]}
+        title="Контакты: вентиляция и электрика в Томске"
+        breadcrumbs={[...breadcrumbs]}
         cta={false}
       />
 
@@ -111,7 +123,7 @@ export default function ContactsPage() {
               id="zayavka"
               className="scroll-mt-28 rounded-2xl border border-border bg-white p-8 shadow-[0_4px_24px_rgb(11_31_53/0.08)] lg:p-10"
             >
-              <h2 className="mb-2 text-2xl font-bold">Форма обратной связи</h2>
+              <h2 className="mb-2 text-2xl font-bold">Заявка на расчёт сметы в Томске</h2>
               <p className="mb-6 text-sm text-text-muted">
                 Заполните поля — мы перезвоним и рассчитаем смету по вашему объекту.
               </p>
@@ -120,6 +132,8 @@ export default function ContactsPage() {
           </Reveal>
         </div>
       </section>
+
+      <FaqSection items={faq} />
     </>
   )
 }

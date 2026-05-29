@@ -2,13 +2,19 @@ import type { Metadata } from 'next'
 import FeatureCard from '@/components/FeatureCard'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
+import ServicePageExtras from '@/components/ServicePageExtras'
 
 export const dynamic = 'force-static'
 
+const SERVICE_DESCRIPTION =
+  'ООО «Модуль» — проектирование и электромонтаж в Томске: ЭОМ, освещение, ВРУ, силовые сети, сдача объекта под ключ.'
+
 export const metadata: Metadata = {
-  title: 'Электрика',
-  description: 'Проектирование и монтаж электрических систем для зданий и сооружений.',
+  title: 'Электромонтаж и проектирование электрики в Томске',
+  description: SERVICE_DESCRIPTION,
 }
+
+const PAGE_H1 = 'Электромонтаж и проектирование электрики в Томске'
 
 const items = [
   {
@@ -39,8 +45,8 @@ export default function ElectricsPage() {
     <>
       <PageHero
         label="Электрика"
-        title="Электроснабжение и электромонтаж"
-        subtitle="Проектирование и монтаж электрических систем для зданий и сооружений любой сложности."
+        title={PAGE_H1}
+        subtitle="ЭОМ, электроосвещение, ВРУ и силовые сети — проектирование и монтаж для зданий и промышленных объектов."
         breadcrumbs={[
           { href: '/', label: 'Главная' },
           { href: '/elektrika', label: 'Электрика' },
@@ -52,7 +58,9 @@ export default function ElectricsPage() {
           <Reveal>
             <div>
               <span className="section-label">О направлении</span>
-              <h2 className="mt-2 text-3xl font-bold">Надёжное электроснабжение</h2>
+              <h2 className="mt-2 text-3xl font-bold">
+                Проектирование и монтаж электроснабжения в Томске
+              </h2>
               <p className="mt-4 text-text-muted">
                 Выполняем проектные и монтажные работы в соответствии с ПУЭ и действующими ГОСТ.
                 Обеспечиваем безопасность, резервирование и удобство эксплуатации на каждом объекте.
@@ -78,7 +86,9 @@ export default function ElectricsPage() {
       <section className="bg-bg py-20">
         <div className="container-site">
           <Reveal>
-            <h2 className="mb-12 text-center text-3xl font-bold">Этапы работ</h2>
+            <h2 className="mb-12 text-center text-3xl font-bold">
+              Этапы электромонтажа и проектирования ЭОМ
+            </h2>
           </Reveal>
           <div className="grid gap-6 sm:grid-cols-3">
             {items.map((item, i) => (
@@ -87,6 +97,17 @@ export default function ElectricsPage() {
           </div>
         </div>
       </section>
+
+      <ServicePageExtras
+        path="/elektrika"
+        serviceName={PAGE_H1}
+        serviceDescription={SERVICE_DESCRIPTION}
+        breadcrumbs={[
+          { href: '/', label: 'Главная' },
+          { href: '/elektrika', label: 'Электрика' },
+        ]}
+        faqKey="elektrika"
+      />
     </>
   )
 }
