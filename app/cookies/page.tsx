@@ -76,14 +76,31 @@ export default function CookiesPage() {
                         </td>
                         <td className="px-4 py-3">До 12 месяцев</td>
                       </tr>
+                      <tr>
+                        <td className="px-4 py-3 font-semibold text-text">Аналитические</td>
+                        <td className="px-4 py-3">
+                          Яндекс.Метрика (ООО «Яндекс»): статистика посещений, карта кликов,
+                          вебвизор — только после согласия в баннере cookie
+                        </td>
+                        <td className="px-4 py-3">До 12 месяцев</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
                 <p className="mt-4">
-                  На момент публикации Политики Сайт не использует рекламные cookie и cookie
-                  сторонних аналитических систем (например, Яндекс.Метрика, Google Analytics). При
-                  подключении таких сервисов Политика будет обновлена, а согласие запрашивается
-                  повторно.
+                  Рекламные cookie и иные сторонние аналитические системы (кроме Яндекс.Метрики) на
+                  Сайте не используются. Счётчик Метрики загружается только при выборе «Принять» в
+                  баннере; при выборе «Только необходимые» аналитика не подключается. Политика
+                  конфиденциальности Яндекса:{' '}
+                  <a
+                    href="https://yandex.ru/legal/confidential/"
+                    className="text-brand hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    yandex.ru/legal/confidential
+                  </a>
+                  .
                 </p>
               </section>
 

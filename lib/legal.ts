@@ -1,7 +1,7 @@
 /** Юридические документы сайта (152-ФЗ, рекомендации Роскомнадзора). */
 export const legal = {
   /** Дата последнего обновления документов (отображается на страницах). */
-  lastUpdated: '28.05.2026',
+  lastUpdated: '29.05.2026',
   cookieStorageKey: 'modulspk_cookie_consent_v1',
   links: {
     privacy: '/privacy',

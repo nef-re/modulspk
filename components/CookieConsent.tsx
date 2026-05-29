@@ -2,9 +2,8 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { notifyCookieConsent, type CookieConsentValue } from '@/lib/cookie-consent'
 import { legal } from '@/lib/legal'
-
-type ConsentValue = 'accepted' | 'essential_only'
 
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false)
@@ -18,12 +17,13 @@ export default function CookieConsent() {
     }
   }, [])
 
-  function save(value: ConsentValue) {
+  function save(value: CookieConsentValue) {
     try {
       localStorage.setItem(legal.cookieStorageKey, value)
     } catch {
       /* ignore */
     }
+    notifyCookieConsent(value)
     setVisible(false)
   }
 
@@ -42,14 +42,14 @@ export default function CookieConsent() {
             Использование файлов cookie
           </p>
           <p id="cookie-consent-desc" className="mt-1 text-sm text-text-muted">
-            Сайт использует обязательные cookie для корректной работы. Продолжая пользоваться
-            сайтом, вы соглашаетесь с{' '}
+            Сайт использует обязательные cookie для работы. По кнопке «Принять» также подключается
+            Яндекс.Метрика (аналитика посещений). Подробнее — в{' '}
             <Link href={legal.links.cookies} className="text-brand underline-offset-2 hover:underline">
-              политикой использования cookie
+              политике использования cookie
             </Link>{' '}
             и{' '}
             <Link href={legal.links.privacy} className="text-brand underline-offset-2 hover:underline">
-              политикой обработки персональных данных
+              политике обработки персональных данных
             </Link>
             .
           </p>
