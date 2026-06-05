@@ -6,8 +6,6 @@ import Reveal from '@/components/Reveal'
 import ServicePageExtras from '@/components/ServicePageExtras'
 import { productionCta } from '@/lib/site'
 
-const WORKSHOP_PHOTO = '/proizvodstvo/workshop.png'
-
 export const dynamic = 'force-static'
 
 const SERVICE_DESCRIPTION =
@@ -29,30 +27,55 @@ const products = [
   'Шумоглушители и фильтрующие секции',
 ]
 
+const showcasePhotos = [
+  {
+    src: '/proizvodstvo/products.png',
+    alt: 'Фасонные изделия и воздуховоды собственного производства',
+    caption: 'Воздуховоды, переходы, фасонные изделия',
+  },
+  {
+    src: '/proizvodstvo/grilles.png',
+    alt: 'Вентиляционные решётки и диффузоры',
+    caption: 'Решётки, диффузоры, клапаны',
+  },
+] as const
+
 const equipment = [
   {
     title: 'Лазерный станок с ЧПУ',
     text: 'Обеспечивает филигранную точность раскроя и идеально ровный рез без окалины и деформации металла — вырезает детали абсолютно любого сложного контура.',
+    image: '/proizvodstvo/laser-cnc.png',
+    imageAlt: 'Лазерный станок с ЧПУ G·WEIK',
   },
   {
     title: 'Автоматическая линия ADF-P3',
     text: 'Гарантирует скоростной и непрерывный выпуск прямых участков прямоугольных воздуховодов.',
+    image: '/proizvodstvo/adf-line.png',
+    imageAlt: 'Автоматическая линия по производству профильных труб ADF-P3',
   },
   {
     title: 'Установка ВС-007',
     text: 'Основа производства круглых воздуховодов. Формирует плотный, герметичный замок, обеспечивая максимальную жёсткость магистрали.',
+    image: '/proizvodstvo/round-ducts.png',
+    imageAlt: 'Производство круглых воздуховодов на установке ВС-007',
   },
   {
     title: 'Станок плазменной резки Spiro Plasma Florett 3000',
     text: 'С высочайшей скоростью раскраивает листовой металл для фасонных деталей: переходы, тройники, сложные отводы.',
+    image: '/proizvodstvo/plasma-cutter.png',
+    imageAlt: 'Станок плазменной резки Spiro Plasma Florett 3000',
   },
   {
     title: 'Станок тоннельной сборки RAS 2010',
     text: 'Создаёт абсолютно герметичный и неразрывный продольный шов на прямоугольных коробах, исключая потери воздуха в системе.',
+    image: '/proizvodstvo/ras-assembly.png',
+    imageAlt: 'Станок тоннельной сборки RAS 2010',
   },
   {
     title: 'Заготовительная и сборочная база',
     text: 'Промышленные гильотинные ножницы СТД 9А, парк вальцовочных станков, зиг-машин и машин контактной точечной сварки Tecna для надёжной финальной фиксации.',
+    image: '/proizvodstvo/guillotine.png',
+    imageAlt: 'Гильотинные ножницы СТД 9А и заготовительный участок',
   },
 ] as const
 
@@ -93,34 +116,6 @@ export default function ProductionPage() {
         cta={productionCta}
       />
 
-      <section className="pb-4 pt-2 lg:pb-6 lg:pt-4">
-        <div className="container-site">
-          <Reveal>
-            <div className="relative overflow-hidden rounded-3xl shadow-[0_8px_40px_rgb(11_31_53/0.12)]">
-              <div className="relative aspect-[16/10] sm:aspect-[2/1] lg:aspect-[21/8]">
-                <Image
-                  src={WORKSHOP_PHOTO}
-                  alt="Цех металлообработки ООО «Модуль» — производство вентиляционного оборудования"
-                  fill
-                  className="object-cover object-center"
-                  sizes="(max-width: 1024px) 100vw, 1200px"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0b1f35]/65 via-[#0b1f35]/10 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7 lg:p-8">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-white/80">
-                    Собственное производство
-                  </p>
-                  <p className="mt-1 max-w-xl text-base font-bold text-white sm:text-lg">
-                    Цех металлообработки, покраски и сборки — п. Предтеченск, Томск
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
       <section className="py-16 lg:py-20">
         <div className="container-site grid gap-12 lg:grid-cols-2 lg:items-start">
           <Reveal>
@@ -140,6 +135,9 @@ export default function ProductionPage() {
                 дают нам возможность гарантировать идеальную геометрию изделий и строгое соблюдение
                 сроков.
               </p>
+              <p className="mt-4 text-sm text-text-muted">
+                Цех металлообработки, покраски и сборки — п. Предтеченск, Томск
+              </p>
             </div>
           </Reveal>
           <Reveal delay={120}>
@@ -158,6 +156,28 @@ export default function ProductionPage() {
               </ul>
             </div>
           </Reveal>
+        </div>
+
+        <div className="container-site mt-12 grid gap-6 sm:grid-cols-2">
+          {showcasePhotos.map((photo, i) => (
+            <Reveal key={photo.src} delay={i * 80}>
+              <figure className="overflow-hidden rounded-2xl border border-border bg-white shadow-sm">
+                <div className="relative aspect-[16/10] bg-[#eaf2ff]">
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    className="object-cover object-center"
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                    priority={i === 0}
+                  />
+                </div>
+                <figcaption className="px-4 py-3 text-sm font-semibold text-text-muted">
+                  {photo.caption}
+                </figcaption>
+              </figure>
+            </Reveal>
+          ))}
         </div>
       </section>
 
