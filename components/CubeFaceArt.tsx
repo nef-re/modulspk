@@ -81,6 +81,24 @@ export default function CubeFaceArt({ type, size = 'face' }: { type: string; siz
           <path d="M18 58 H24 M18 64 H24" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
       )
+    case 'tech-docs':
+      return (
+        <svg className={cls} viewBox="0 0 80 80" fill="none" aria-hidden="true">
+          <rect x="24" y="14" width="32" height="42" stroke="white" strokeWidth="2" />
+          <rect x="18" y="20" width="32" height="42" stroke="white" strokeWidth="2" opacity="0.5" />
+          <path d="M30 30 H50 M30 38 H46 M30 46 H40" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          <path d="M44 54 L50 60 L62 46" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      )
+    case 'exec-docs':
+      return (
+        <svg className={cls} viewBox="0 0 80 80" fill="none" aria-hidden="true">
+          <rect x="18" y="16" width="44" height="52" stroke="white" strokeWidth="2" />
+          <path d="M28 30 H52 M28 40 H52 M28 50 H44" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          <rect x="46" y="12" width="16" height="16" rx="8" stroke="white" strokeWidth="2" />
+          <path d="M50 20 L52 22 L58 16" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      )
     default:
       return null
   }

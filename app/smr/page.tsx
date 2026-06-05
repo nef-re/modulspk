@@ -3,18 +3,19 @@ import FeatureCard from '@/components/FeatureCard'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
 import ServicePageExtras from '@/components/ServicePageExtras'
+import { geography, smrDocumentation } from '@/lib/site'
 
 export const dynamic = 'force-static'
 
 const SERVICE_DESCRIPTION =
-  'ООО «Модуль» — СМР и ПНР в Томске: монтаж вентиляции и электрики, пусконаладка, сдача объекта и исполнительная документация.'
+  'ООО «Модуль» — СМР и ПНР в Томске и Томском районе: монтаж вентиляции и электрики, техническая и исполнительная документация, сдача объекта.'
 
 export const metadata: Metadata = {
-  title: 'СМР и пусконаладка вентиляции и электрики в Томске',
+  title: 'СМР и пусконаладка вентиляции и электрики',
   description: SERVICE_DESCRIPTION,
 }
 
-const PAGE_H1 = 'СМР и пусконаладка вентиляции и электрики в Томске'
+const PAGE_H1 = 'СМР и пусконаладка вентиляции и электрики'
 
 const items = [
   {
@@ -46,7 +47,7 @@ export default function SmrPage() {
       <PageHero
         label="СМР"
         title={PAGE_H1}
-        subtitle="Монтаж вентиляции и электрики, ПНР и сдача объекта под ключ — от площадки до исполнительной документации."
+        subtitle={`Монтаж вентиляции и электрики, ПНР и сдача объекта под ключ — ${geography.smr}.`}
         breadcrumbs={[
           { href: '/', label: 'Главная' },
           { href: '/smr', label: 'СМР' },
@@ -59,11 +60,11 @@ export default function SmrPage() {
             <div>
               <span className="section-label">О направлении</span>
               <h2 className="mt-3 text-2xl font-bold lg:text-3xl">
-                Строительно-монтажные работы по вентиляции в Томске
+                Строительно-монтажные работы {geography.smr}
               </h2>
               <p className="mt-4 text-text-muted leading-relaxed">
                 Собственные монтажные бригады, опытные прорабы и инженеры ПНР. Используем
-                оборудование собственного производства — сроки и качество под контролем.
+                оборудование собственного производства в Томске — сроки и качество под контролем.
               </p>
             </div>
           </Reveal>
@@ -83,7 +84,51 @@ export default function SmrPage() {
         </div>
       </section>
 
-      <section className="border-t border-border bg-white py-16 lg:py-20">
+      <section
+        id="tehnicheskaya-dokumentaciya"
+        className="scroll-mt-[calc(var(--header-h)+1rem)] border-t border-border bg-bg py-16 lg:py-20"
+      >
+        <div className="container-site max-w-3xl">
+          <Reveal>
+            <span className="section-label">Документация</span>
+            <h2 className="mt-3 text-2xl font-bold lg:text-3xl">{smrDocumentation.techDocsTitle}</h2>
+            <p className="mt-4 text-text-muted leading-relaxed">{smrDocumentation.techDocsText}</p>
+          </Reveal>
+        </div>
+      </section>
+
+      <section
+        id="ispolnitelnaya-dokumentaciya"
+        className="scroll-mt-[calc(var(--header-h)+1rem)] border-t border-border bg-white py-16 lg:py-20"
+      >
+        <div className="container-site">
+          <Reveal>
+            <div className="max-w-3xl">
+              <span className="section-label">Сдача объекта</span>
+              <h2 className="mt-3 text-2xl font-bold lg:text-3xl">{smrDocumentation.execDocsTitle}</h2>
+              <p className="mt-6 text-lg font-medium leading-relaxed text-text">
+                {smrDocumentation.problem}
+              </p>
+              <p className="mt-4 text-text-muted leading-relaxed">{smrDocumentation.support}</p>
+            </div>
+          </Reveal>
+          <Reveal delay={80}>
+            <h3 className="mb-8 mt-12 text-xl font-bold lg:text-2xl">Что мы делаем</h3>
+          </Reveal>
+          <div className="grid gap-6 sm:grid-cols-2">
+            {smrDocumentation.tasks.map((task, i) => (
+              <Reveal key={task.title} delay={i * 60}>
+                <article className="h-full rounded-2xl border border-border bg-bg-card p-6">
+                  <h4 className="text-lg font-bold">{task.title}</h4>
+                  <p className="mt-3 text-sm leading-relaxed text-text-muted">{task.text}</p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-border bg-bg py-16 lg:py-20">
         <div className="container-site">
           <Reveal>
             <h2 className="mb-10 text-center text-2xl font-bold lg:text-3xl">

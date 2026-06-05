@@ -2,8 +2,7 @@ import type { Metadata } from 'next'
 import JsonLd from '@/components/JsonLd'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
-import StatCounter from '@/components/StatCounter'
-import { aboutPlainText, company, stats, advantages, sroMemberships } from '@/lib/site'
+import { aboutDifferentiators, aboutPlainText, company, geography, sroMemberships } from '@/lib/site'
 import { breadcrumbJsonLd } from '@/lib/structured-data'
 
 export const dynamic = 'force-static'
@@ -14,8 +13,9 @@ const breadcrumbs = [
 ] as const
 
 export const metadata: Metadata = {
-  title: 'О компании — подрядчик по вентиляции и электрике в Томске',
-  description: `ООО «Модуль» — инженерная компания в ${company.city}: монтаж вентиляции и электрики, СРО, 200+ объектов, собственное производство.`,
+  title: 'О компании — инженерные системы с 2004 года',
+  description:
+    'ООО «Модуль» — проектирование, производство и монтаж инженерных систем. Более 150 объектов с 2004 года, собственное производство в Томске.',
 }
 
 export default function AboutPage() {
@@ -24,17 +24,17 @@ export default function AboutPage() {
       <JsonLd data={breadcrumbJsonLd([...breadcrumbs])} />
       <PageHero
         label="О компании"
-        title={`${company.name} — вентиляция и электрика в Томске`}
-        subtitle="Инженерный подрядчик: проектирование, СМР, ПНР и собственное производство вентиляционного оборудования."
+        title={aboutPlainText.title}
+        subtitle="Проектирование по России, собственное производство в Томске, СМР в Томске и Томском районе."
         breadcrumbs={[...breadcrumbs]}
+        cta={false}
       />
 
       <section className="border-b border-border bg-white py-12 lg:py-16">
         <div className="container-site max-w-3xl">
           <Reveal>
-            <h2 className="text-xl font-bold lg:text-2xl">{aboutPlainText.title}</h2>
-            <div className="mt-6 space-y-4 text-sm leading-relaxed text-text-muted lg:text-base">
-              {aboutPlainText.paragraphs.map((paragraph) => (
+            <div className="space-y-4 text-sm leading-relaxed text-text-muted lg:text-base">
+              {aboutPlainText.paragraphs.slice(0, 2).map((paragraph) => (
                 <p key={paragraph.slice(0, 48)}>{paragraph}</p>
               ))}
             </div>
@@ -42,41 +42,20 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-20">
-        <div className="container-site space-y-12">
-          <Reveal>
-            <p className="max-w-3xl text-xl leading-relaxed text-text-muted">
-              Мы объединяем проектный отдел, монтажные бригады и производство вентиляционного
-              оборудования, чтобы заказчик получал единое решение без разрыва ответственности между
-              подрядчиками.
-            </p>
-          </Reveal>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {stats.map((stat, i) => (
-              <Reveal key={stat.label} delay={i * 60}>
-                <div className="text-center">
-                  <StatCounter value={stat.value} suffix={stat.suffix} />
-                  <p className="mt-2 text-sm text-text-muted">{stat.label}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="bg-bg py-20">
         <div className="container-site">
           <Reveal>
             <h2 className="mb-12 text-center text-3xl font-bold">
-              Преимущества инженерного подрядчика в Томске
+              Чем «Модуль» отличается от других монтажных компаний
             </h2>
           </Reveal>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {advantages.map((item, i) => (
+          <div className="grid gap-6 lg:grid-cols-3">
+            {aboutDifferentiators.map((item, i) => (
               <Reveal key={item.title} delay={i * 80}>
                 <article className="relative overflow-hidden rounded-2xl border border-border bg-bg-card p-6">
                   <div className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-brand to-amber" />
-                  <h3 className="text-lg font-bold">{item.title}</h3>
+                  <span className="text-2xl font-bold text-brand/30">{String(i + 1).padStart(2, '0')}</span>
+                  <h3 className="mt-2 text-lg font-bold">{item.title}</h3>
                   <p className="mt-2 text-sm text-text-muted">{item.text}</p>
                 </article>
               </Reveal>
@@ -131,11 +110,11 @@ export default function AboutPage() {
       <section className="py-20">
         <div className="container-site max-w-3xl prose prose-slate">
           <Reveal>
-            <h2 className="text-2xl font-bold">География работ: Томск и область</h2>
+            <h2 className="text-2xl font-bold">География работ</h2>
             <p className="mt-4 text-text-muted">
-              Основной регион — Томск и Томская область. Выполняем проекты для жилых комплексов,
-              офисов, торговых центров, производственных и складских помещений. Готовы выехать на
-              объект для обследования и подготовки коммерческого предложения.
+              Проектирование выполняем {geography.design}. Строительно-монтажные и пусконаладочные
+              работы — {geography.smr}. Производство вентиляционного оборудования —{' '}
+              {geography.production}. Офис и завод расположены в Томске.
             </p>
           </Reveal>
         </div>

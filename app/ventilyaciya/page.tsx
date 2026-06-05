@@ -3,18 +3,19 @@ import FeatureCard from '@/components/FeatureCard'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
 import ServicePageExtras from '@/components/ServicePageExtras'
+import { geography } from '@/lib/site'
 
 export const dynamic = 'force-static'
 
 const SERVICE_DESCRIPTION =
-  'ООО «Модуль» — проектирование и монтаж вентиляции в Томске: ОВ, дымоудаление, кондиционирование, ПНР, собственное производство оборудования.'
+  'ООО «Модуль» — проектирование вентиляции по России, монтаж в Томске и Томском районе: ОВ, дымоудаление, кондиционирование, ПНР.'
 
 export const metadata: Metadata = {
-  title: 'Монтаж и проектирование вентиляции в Томске',
+  title: 'Монтаж и проектирование вентиляции',
   description: SERVICE_DESCRIPTION,
 }
 
-const PAGE_H1 = 'Монтаж и проектирование вентиляции в Томске'
+const PAGE_H1 = 'Монтаж и проектирование вентиляции'
 
 const items = [
   {
@@ -46,7 +47,7 @@ export default function VentilationPage() {
       <PageHero
         label="Вентиляция"
         title={PAGE_H1}
-        subtitle="Приточно-вытяжная вентиляция, кондиционирование, дымоудаление — проект, СМР и ПНР с собственным оборудованием."
+        subtitle={`Приточно-вытяжная вентиляция, кондиционирование, дымоудаление — проект ${geography.design}, СМР ${geography.smr}.`}
         breadcrumbs={[
           { href: '/', label: 'Главная' },
           { href: '/ventilyaciya', label: 'Вентиляция' },
@@ -59,12 +60,12 @@ export default function VentilationPage() {
             <div>
               <span className="section-label">О направлении</span>
               <h2 className="mt-2 text-3xl font-bold">
-                Системы вентиляции и кондиционирования в Томске
+                Системы вентиляции и кондиционирования
               </h2>
               <p className="mt-4 text-text-muted">
-                Проектируем и монтируем вентиляционные системы с учётом назначения помещений, норм
-                СП 60.13330 и энергоэффективности. Используем оборудование собственного производства —
-                это сокращает сроки и стоимость.
+                Проектируем {geography.design} и монтируем {geography.smr} вентиляционные системы с
+                учётом назначения помещений, норм СП 60.13330 и энергоэффективности. Используем
+                оборудование собственного производства в Томске — это сокращает сроки и стоимость.
               </p>
             </div>
           </Reveal>

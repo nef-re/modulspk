@@ -3,18 +3,19 @@ import FeatureCard from '@/components/FeatureCard'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
 import ServicePageExtras from '@/components/ServicePageExtras'
+import { geography } from '@/lib/site'
 
 export const dynamic = 'force-static'
 
 const SERVICE_DESCRIPTION =
-  'ООО «Модуль» — проектирование и электромонтаж в Томске: ЭОМ, освещение, ВРУ, силовые сети, сдача объекта под ключ.'
+  'ООО «Модуль» — проектирование электрики по России, электромонтаж в Томске и Томском районе: ЭОМ, ЭС, ЭН, освещение, ВРУ.'
 
 export const metadata: Metadata = {
-  title: 'Электромонтаж и проектирование электрики в Томске',
+  title: 'Электромонтаж и проектирование электрики',
   description: SERVICE_DESCRIPTION,
 }
 
-const PAGE_H1 = 'Электромонтаж и проектирование электрики в Томске'
+const PAGE_H1 = 'Электромонтаж и проектирование электрики'
 
 const items = [
   {
@@ -46,7 +47,7 @@ export default function ElectricsPage() {
       <PageHero
         label="Электрика"
         title={PAGE_H1}
-        subtitle="ЭОМ, электроосвещение, ВРУ и силовые сети — проектирование и монтаж для зданий и промышленных объектов."
+        subtitle={`ЭОМ, ЭС, ЭН, электроосвещение, ВРУ — проект ${geography.design}, монтаж ${geography.smr}.`}
         breadcrumbs={[
           { href: '/', label: 'Главная' },
           { href: '/elektrika', label: 'Электрика' },
@@ -59,11 +60,12 @@ export default function ElectricsPage() {
             <div>
               <span className="section-label">О направлении</span>
               <h2 className="mt-2 text-3xl font-bold">
-                Проектирование и монтаж электроснабжения в Томске
+                Проектирование и монтаж электроснабжения
               </h2>
               <p className="mt-4 text-text-muted">
-                Выполняем проектные и монтажные работы в соответствии с ПУЭ и действующими ГОСТ.
-                Обеспечиваем безопасность, резервирование и удобство эксплуатации на каждом объекте.
+                Проектируем {geography.design}, монтируем {geography.smr} в соответствии с ПУЭ и
+                действующими ГОСТ. Обеспечиваем безопасность, резервирование и удобство эксплуатации
+                на каждом объекте.
               </p>
             </div>
           </Reveal>

@@ -8,7 +8,7 @@ import Logo from '@/components/Logo'
 import MaxContactLink from '@/components/MaxContactLink'
 import PhoneContactLink from '@/components/PhoneContactLink'
 import { Button } from '@/components/ui/Button'
-import { estimateCta, navLinks } from '@/lib/site'
+import { headerCta, navLinks } from '@/lib/site'
 
 function NavLinks({ pathname, onNavigate }: { pathname: string; onNavigate?: () => void }) {
   return (
@@ -60,8 +60,8 @@ function MobileMenu({
       >
         <NavLinks pathname={pathname} onNavigate={onClose} />
         <div className="border-t border-border pt-6">
-          <Button href={estimateCta.href} full>
-            {estimateCta.label}
+          <Button href={headerCta.href} full>
+            {headerCta.label}
           </Button>
         </div>
       </nav>
@@ -125,8 +125,8 @@ export default function Header() {
           <div className="hidden shrink-0 items-center gap-2.5 lg:flex">
             <PhoneContactLink size="sm" />
             <MaxContactLink size="sm" />
-            <Button href={estimateCta.href} size="sm">
-              {estimateCta.label}
+            <Button href={headerCta.href} size="sm">
+              {headerCta.label}
             </Button>
           </div>
 

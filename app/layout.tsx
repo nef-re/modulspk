@@ -24,10 +24,10 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL(company.siteUrl),
   title: {
-    default: `Монтаж вентиляции и электрики в Томске — проект, СМР, ПНР | ${company.shortName}`,
+    default: `Вентиляция и электрика — проект, СМР, ПНР | ${company.shortName}`,
     template: `%s | ${company.shortName}`,
   },
-  description: `${company.name} — проектирование, монтаж и пусконаладка вентиляции и электрики в Томске. Собственное производство вентиляционного оборудования.`,
+  description: `${company.name} — проектирование по России, СМР и ПНР в Томске и Томском районе. Собственное производство вентиляционного оборудования в Томске.`,
   keywords: [...seo.defaultKeywords],
   category: 'business',
   alternates: { canonical: company.siteUrl },
@@ -47,13 +47,13 @@ export const metadata: Metadata = {
     locale: 'ru_RU',
     url: company.siteUrl,
     siteName: company.shortName,
-    title: `Монтаж вентиляции и электрики в Томске | ${company.shortName}`,
-    description: `${company.name} — проектирование, монтаж и ПНР вентиляции и электрики в Томске и области.`,
+    title: `Вентиляция и электрика — проект, СМР, ПНР | ${company.shortName}`,
+    description: `${company.name} — проектирование по России, монтаж и ПНР в Томске и Томском районе.`,
   },
   twitter: {
     card: 'summary_large_image',
-    title: `Вентиляция и электрика в Томске — ${company.shortName}`,
-    description: `Проектирование, монтаж и ПНР вентиляции и электрики в Томске.`,
+    title: `Вентиляция и электрика — ${company.shortName}`,
+    description: `Проектирование по России, монтаж и ПНР. Собственное производство в Томске.`,
   },
   icons: {
     icon: '/favicon.png',

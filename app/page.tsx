@@ -6,15 +6,14 @@ import JsonLd from '@/components/JsonLd'
 import ProjectGallery from '@/components/ProjectGallery'
 import Reveal from '@/components/Reveal'
 import ServiceCard from '@/components/ServiceCard'
-import StatCounter from '@/components/StatCounter'
 import { Button } from '@/components/ui/Button'
 import { projectsItemListJsonLd } from '@/lib/structured-data'
 import {
   company,
   estimateCta,
+  geography,
   seo,
   services,
-  stats,
   advantages,
   projects,
   processSteps,
@@ -23,9 +22,9 @@ import {
 export const dynamic = 'force-static'
 
 export const metadata: Metadata = {
-  title: 'Вентиляция и электрика в Томске — проект, монтаж, ПНР',
+  title: 'Вентиляция и электрика — проект, монтаж, ПНР',
   description:
-    'ООО «Модуль» — проектирование, монтаж и пусконаладка вентиляции и электрики в Томске. Собственное производство вентиляционного оборудования, СМР под ключ.',
+    'ООО «Модуль» — проектирование по России, СМР и ПНР в Томске и Томском районе. Собственное производство вентиляционного оборудования в Томске.',
   keywords: [...seo.defaultKeywords],
 }
 
@@ -46,8 +45,8 @@ export default function HomePage() {
               </span>
             </h1>
             <p className="hero-section__lead">
-              {company.name} — проектирование, производство вентиляционного оборудования,
-              строительно-монтажные и пусконаладочные работы в Томске и области.
+              {company.name} — проектирование {geography.design}, производство вентиляционного
+              оборудования {geography.production}, СМР и ПНР {geography.smr}.
             </p>
             <p className="mt-4 max-w-xl text-sm text-text-muted">
               Выполняем инженерные работы для жилых, коммерческих и производственных объектов с
@@ -55,9 +54,6 @@ export default function HomePage() {
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Button href={estimateCta.href}>{estimateCta.label}</Button>
-              <Button href="/proektirovanie" variant="ghost">
-                Наши услуги
-              </Button>
             </div>
             <div className="mt-8 flex flex-wrap gap-2">
               {[
@@ -86,12 +82,12 @@ export default function HomePage() {
           <Reveal>
             <div className="mb-10 text-center lg:mb-14">
               <h2 className="mt-3 text-3xl font-bold lg:text-4xl">
-                Портфолио: монтаж вентиляции и инженерных систем
+                Портфолио: примеры наших работ
               </h2>
             </div>
           </Reveal>
           <div className="grid gap-6 sm:grid-cols-2">
-            {projects.map((project, i) => (
+            {projects.slice(0, 4).map((project, i) => (
               <Reveal key={project.id} delay={i * 70}>
                 <article className="group overflow-hidden rounded-2xl bg-white shadow-[0_4px_24px_rgb(11_31_53/0.08)]">
                   <ProjectGallery
@@ -99,24 +95,35 @@ export default function HomePage() {
                     title={project.title}
                     object={project.object}
                     description={project.description}
+                    photoScale={project.photoScale}
                   />
                 </article>
               </Reveal>
             ))}
           </div>
-        </div>
-      </section>
 
-      <section className="border-y border-border bg-white py-14 lg:py-16">
-        <div className="container-site grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat, i) => (
-            <Reveal key={stat.label} delay={i * 60}>
-              <div className="text-center">
-                <StatCounter value={stat.value} suffix={stat.suffix} />
-                <p className="mt-2 text-sm text-text-muted">{stat.label}</p>
+          {projects.length > 4 && (
+            <details className="group mt-10">
+              <summary className="mx-auto w-fit cursor-pointer list-none rounded-full border border-border bg-white px-6 py-3 text-sm font-bold text-text shadow-sm transition hover:border-brand/40 hover:text-brand marker:content-none [&::-webkit-details-marker]:hidden">
+                Показать ещё объекты
+              </summary>
+              <div className="mt-8 grid gap-6 sm:grid-cols-2">
+                {projects.slice(4).map((project, i) => (
+                  <Reveal key={project.id} delay={i * 70}>
+                    <article className="group overflow-hidden rounded-2xl bg-white shadow-[0_4px_24px_rgb(11_31_53/0.08)]">
+                      <ProjectGallery
+                        photos={project.photos ?? []}
+                        title={project.title}
+                        object={project.object}
+                        description={project.description}
+                        photoScale={project.photoScale}
+                      />
+                    </article>
+                  </Reveal>
+                ))}
               </div>
-            </Reveal>
-          ))}
+            </details>
+          )}
         </div>
       </section>
 
@@ -126,10 +133,11 @@ export default function HomePage() {
             <div className="mb-10 max-w-2xl lg:mb-14">
               <span className="section-label">Услуги</span>
               <h2 className="mt-3 text-3xl font-bold text-text lg:text-4xl">
-                Услуги: вентиляция, электрика, проектирование и СМР
+                Проектирование, СМР, производство и сдача объекта
               </h2>
               <p className="mt-4 text-lg text-text-muted">
-                Полный цикл: от проектной документации до монтажа, ПНР и собственного производства.
+                Полный цикл: от проектной документации до монтажа, ПНР, технической и исполнительной
+                документации.
               </p>
             </div>
           </Reveal>
@@ -165,7 +173,7 @@ export default function HomePage() {
             <div>
               <span className="section-label">Как мы работаем</span>
               <h2 className="mt-3 text-3xl font-bold lg:text-4xl">
-                Этапы работ: от заявки до сдачи объекта в Томске
+                Этапы работ: от заявки до сдачи объекта
               </h2>
               <p className="mt-4 text-text-muted leading-relaxed">
                 Сопровождаем объект от первой встречи до сдачи исполнительной документации. Сроки и

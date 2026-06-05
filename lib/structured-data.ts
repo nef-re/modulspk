@@ -35,7 +35,13 @@ export function organizationJsonLd() {
     ],
     knowsAbout: [
       'вентиляция',
+      'проектирование ИОС 5.4',
+      'проектирование ИОС 5.1',
       'проектирование ОВ',
+      'проектирование АОВ',
+      'проектирование ЭОМ',
+      'проектирование ЭС',
+      'проектирование ЭН',
       'электромонтаж',
       'пусконаладка',
       'производство вентиляционного оборудования',
@@ -68,10 +74,7 @@ export function hvacBusinessJsonLd() {
       latitude: company.mapLat,
       longitude: company.mapLon,
     },
-    areaServed: [
-      { '@type': 'City', name: 'Томск' },
-      { '@type': 'AdministrativeArea', name: 'Томская область' },
-    ],
+    areaServed: { '@type': 'Country', name: 'Россия' },
     openingHoursSpecification: {
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
@@ -111,10 +114,7 @@ export function serviceJsonLd({
     description,
     url: `${company.siteUrl}${path}`,
     provider: { '@id': ORGANIZATION_ID },
-    areaServed: {
-      '@type': 'City',
-      name: company.city,
-    },
+    areaServed: { '@type': 'Country', name: 'Россия' },
     serviceType: name,
   }
 }
@@ -138,7 +138,7 @@ export function projectsItemListJsonLd(projectItems: ProjectItem[] = projects) {
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'Реализованные объекты ООО «Модуль»',
+    name: 'Примеры работ ООО «Модуль»',
     numberOfItems: projectItems.length,
     itemListElement: projectItems.map((project, index) => ({
       '@type': 'ListItem',

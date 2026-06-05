@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import CubeFaceArt from '@/components/CubeFaceArt'
 import Reveal from '@/components/Reveal'
@@ -7,6 +8,7 @@ type Service = {
   title: string
   desc: string
   icon: string
+  image?: string
   link: string
   accent: string
 }
@@ -18,12 +20,24 @@ export default function ServiceCard({ service, index = 0 }: { service: Service; 
         href={service.link}
         className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_4px_24px_rgb(11_31_53/0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgb(0_101_255/0.15)]"
       >
-        <div
-          className={`relative flex aspect-[4/3] items-center justify-center bg-gradient-to-br ${service.accent} p-8`}
-        >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgb(255_255_255/0.2),transparent_55%)]" />
-          <CubeFaceArt type={service.icon} size="panel" />
-        </div>
+        {service.image ? (
+          <div className="relative aspect-[4/3] overflow-hidden bg-bg">
+            <Image
+              src={service.image}
+              alt={service.title}
+              fill
+              className="object-cover transition duration-500 group-hover:scale-105"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            />
+          </div>
+        ) : (
+          <div
+            className={`relative flex aspect-[4/3] items-center justify-center bg-gradient-to-br ${service.accent} p-8`}
+          >
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgb(255_255_255/0.2),transparent_55%)]" />
+            <CubeFaceArt type={service.icon} size="panel" />
+          </div>
+        )}
         <div className="flex flex-1 flex-col p-6 sm:p-7">
           <h3 className="text-xl font-bold text-text group-hover:text-brand">{service.title}</h3>
           <p className="mt-3 flex-1 text-sm leading-relaxed text-text-muted">{service.desc}</p>
