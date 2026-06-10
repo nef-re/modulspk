@@ -71,10 +71,8 @@ const writeIcon = async (size, file) => {
     .toFile(file)
 }
 
-await writeIcon(32, path.join(ROOT, 'public', 'favicon.png'))
-await writeIcon(180, path.join(ROOT, 'public', 'apple-icon.png'))
 await writeIcon(512, path.join(ROOT, 'app', 'icon.png'))
-await writeIcon(180, path.join(ROOT, 'app', 'apple-icon.png'))
 
 console.log('logo.png — прозрачный фон')
-console.log('favicon / icon — только куб')
+console.log('app/icon.png — куб 512px')
+console.log('Запустите: node scripts/generate-favicons.mjs')

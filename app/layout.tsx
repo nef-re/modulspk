@@ -56,8 +56,13 @@ export const metadata: Metadata = {
     description: `Проектирование по России, монтаж и ПНР. Собственное производство в Томске.`,
   },
   icons: {
-    icon: '/favicon.png',
-    apple: '/apple-icon.png',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.png', type: 'image/png', sizes: '120x120' },
+      { url: '/favicon-32.png', type: 'image/png', sizes: '32x32' },
+    ],
+    apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }],
+    shortcut: '/favicon.ico',
   },
 }
 
