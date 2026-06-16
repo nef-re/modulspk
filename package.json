@@ -11,6 +11,8 @@
     "dev:server": "node server/index.js",
     "favicons": "node scripts/generate-favicons.mjs",
     "build": "node scripts/clean.mjs && next build",
+    "build:fast": "next build",
+    "deploy": "python scripts/deploy_server.py",
     "start": "next start",
     "prod": "npm run build && next start"
   },

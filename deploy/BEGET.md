@@ -81,11 +81,31 @@ Let's Encrypt для `modulspk.ru` и `www` в панели Beget.
 
 ## 6. Обновление
 
+Умный деплой (с локального ПК, после `git push`):
+
+```bash
+# PowerShell
+$env:MODUL_SERVER_PASSWORD = "пароль"
+npm run deploy
+```
+
+Скрипт `scripts/deploy-remote.sh` на сервере выбирает режим по изменённым файлам:
+
+| Режим | Когда | Действия |
+|-------|--------|----------|
+| **static** | только `public/` | `git pull`, без сборки |
+| **build** | код, стили, картинки в `app/` | `next build` (кэш `.next` сохраняется) |
+| **full** | `package.json` / lock или нет сборки | `npm ci` + полная сборка |
+| **noop** | только README, deploy-скрипты | проверка сервиса |
+
+Принудительный режим: `DEPLOY_FORCE=full npm run deploy`
+
+Ручное обновление на VPS:
+
 ```bash
 git pull
-npm install
-npm run build
-# перезапуск PM2 / next / API
+npm run build:fast   # или npm run build при смене зависимостей
+systemctl restart modulspk
 ```
 
 Контакты — `lib/site.ts`.
