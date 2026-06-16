@@ -14,7 +14,7 @@ FORCE="${DEPLOY_FORCE:-}"
 SERVICE="${MODULSPK_SERVICE:-modulspk}"
 PORT="${MODULSPK_PORT:-3000}"
 
-log() { printf '==> %s\n' "$*"; }
+log() { printf '==> %s\n' "$*" >&2; }
 
 ensure_swap() {
   if swapon --show 2>/dev/null | grep -q /swapfile; then
@@ -28,11 +28,11 @@ ensure_swap() {
 }
 
 git_sync() {
-  git fetch origin
-  git checkout master
+  git fetch origin >&2
+  git checkout master >&2
   local old new
   old=$(git rev-parse HEAD)
-  git pull --ff-only origin master
+  git pull --ff-only origin master >&2
   new=$(git rev-parse HEAD)
   if [ "$old" = "$new" ]; then
     # pull мог выполниться выше (bootstrap) — смотрим ORIG_HEAD
@@ -51,7 +51,7 @@ git_sync() {
 }
 
 needs_full_artifacts() {
-  [ ! -x node_modules/.bin/next ] || [ ! -d .next ]
+  ! { [ -x node_modules/.bin/next ] && [ -d .next ]; }
 }
 
 classify_changes() {
