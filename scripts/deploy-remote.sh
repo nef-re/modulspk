@@ -28,26 +28,22 @@ ensure_swap() {
 }
 
 git_sync() {
-  git fetch origin >&2
-  git checkout master >&2
-  local old new
+  git fetch origin >/dev/null 2>&1
+  git checkout master >/dev/null 2>&1
+  local old new orig
   old=$(git rev-parse HEAD)
-  git pull --ff-only origin master >&2
+  git pull --ff-only origin master >/dev/null 2>&1
   new=$(git rev-parse HEAD)
-  if [ "$old" = "$new" ]; then
-    # pull мог выполниться выше (bootstrap) — смотрим ORIG_HEAD
-    if git rev-parse -q --verify ORIG_HEAD >/dev/null 2>&1; then
-      local orig
-      orig=$(git rev-parse ORIG_HEAD)
-      if [ "$orig" != "$new" ]; then
-        git diff --name-only "$orig" "$new"
-        return
-      fi
-    fi
-    echo ''
+  if [ "$old" != "$new" ]; then
+    git diff --name-only "$old" "$new"
     return
   fi
-  git diff --name-only "$old" "$new"
+  if git rev-parse -q --verify ORIG_HEAD >/dev/null 2>&1; then
+    orig=$(git rev-parse ORIG_HEAD)
+    if [ "$orig" != "$new" ]; then
+      git diff --name-only "$orig" "$new"
+    fi
+  fi
 }
 
 needs_full_artifacts() {

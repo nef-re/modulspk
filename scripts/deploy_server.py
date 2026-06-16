@@ -46,7 +46,11 @@ def run() -> int:
     for cmd in COMMANDS:
         run_cmd = f'{env_prefix}{cmd}' if 'deploy-remote.sh' in cmd else cmd
         safe_print(f'\n$ {run_cmd}')
-        _, stdout, stderr = client.exec_command(run_cmd, get_pty=True, timeout=900)
+        _, stdout, stderr = client.exec_command(
+            run_cmd,
+            get_pty='deploy-remote.sh' not in cmd,
+            timeout=900,
+        )
         exit_code = stdout.channel.recv_exit_status()
         out = stdout.read().decode('utf-8', errors='replace')
         err = stderr.read().decode('utf-8', errors='replace')
