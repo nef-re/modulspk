@@ -75,4 +75,5 @@ await writeIcon(512, path.join(ROOT, 'app', 'icon.png'))
 
 console.log('logo.png — прозрачный фон')
 console.log('app/icon.png — куб 512px')
-console.log('Запустите: node scripts/generate-favicons.mjs')
+console.log('Для полного набора фавиконов: npm run favicons')
+console.log('(или положите куб в assets/icon-source.png и запустите favicons)')

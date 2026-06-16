@@ -116,6 +116,27 @@ export default function ProductionPage() {
         cta={productionCta}
       />
 
+      <section className="border-t border-border bg-bg py-16 lg:py-20">
+        <div className="container-site">
+          <Reveal>
+            <div className="mb-10 max-w-2xl">
+              <span className="section-label">Оборудование</span>
+              <h2 className="mt-3 text-2xl font-bold lg:text-3xl">Наш парк оборудования</h2>
+              <p className="mt-4 text-text-muted leading-relaxed">
+                Высокое качество нашей продукции — результат работы на современных,
+                высокоточных станках. Мы отобрали лучшее профильное оборудование для решения самых
+                сложных инженерных и производственных задач:
+              </p>
+            </div>
+          </Reveal>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {equipment.map((item, i) => (
+              <FeatureCard key={item.title} {...item} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 lg:py-20">
         <div className="container-site grid gap-12 lg:grid-cols-2 lg:items-start">
           <Reveal>
@@ -178,27 +199,6 @@ export default function ProductionPage() {
               </figure>
             </Reveal>
           ))}
-        </div>
-      </section>
-
-      <section className="border-t border-border bg-bg py-16 lg:py-20">
-        <div className="container-site">
-          <Reveal>
-            <div className="mb-10 max-w-2xl">
-              <span className="section-label">Оборудование</span>
-              <h2 className="mt-3 text-2xl font-bold lg:text-3xl">Наш парк оборудования</h2>
-              <p className="mt-4 text-text-muted leading-relaxed">
-                Высокое качество нашей продукции — результат работы на современных,
-                высокоточных станках. Мы отобрали лучшее профильное оборудование для решения самых
-                сложных инженерных и производственных задач:
-              </p>
-            </div>
-          </Reveal>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {equipment.map((item, i) => (
-              <FeatureCard key={item.title} {...item} index={i} />
-            ))}
-          </div>
         </div>
       </section>
 
