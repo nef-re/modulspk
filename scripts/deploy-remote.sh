@@ -92,7 +92,7 @@ classify_changes() {
       public/*)
         has_public=true
         ;;
-      README*|deploy/*|scripts/deploy*|.gitignore|.env.example|public/llms.txt|public/about.md)
+      README*|deploy/*|scripts/deploy*|scripts/generate-og-image.mjs|.gitignore|.env.example|public/llms.txt|public/about.md)
         ;;
       *)
         log "Unknown path '$f' — using build mode"
@@ -114,7 +114,17 @@ classify_changes() {
 
 verify_service() {
   systemctl is-active "$SERVICE"
-  curl -sI "http://127.0.0.1:${PORT}" | head -n 1
+  # После restart Next.js поднимается 1–3 секунды — ждём до 30 с.
+  local i
+  for i in $(seq 1 30); do
+    if curl -sfI "http://127.0.0.1:${PORT}" >/dev/null 2>&1; then
+      curl -sI "http://127.0.0.1:${PORT}" | head -n 1
+      return 0
+    fi
+    sleep 1
+  done
+  log "Site did not respond on port ${PORT} within 30s"
+  return 1
 }
 
 CHANGED=$(git_sync)
