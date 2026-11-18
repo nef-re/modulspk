@@ -84,10 +84,22 @@ Let's Encrypt для `modulspk.ru` и `www` в панели Beget.
 Умный деплой (с локального ПК, после `git push`):
 
 ```bash
-# PowerShell
-$env:MODUL_SERVER_PASSWORD = "пароль"
 npm run deploy
 ```
+
+Вход на сервер — только по SSH-ключу (вход по паролю отключён). Адрес сервера
+в репозитории не хранится: скрипт подключается к псевдониму `modulspk`
+из `~/.ssh/config` на вашем ПК:
+
+```
+Host modulspk
+    HostName <IP сервера>
+    User root
+    IdentityFile ~/.ssh/modulspk_ed25519
+    IdentitiesOnly yes
+```
+
+Проверка: `ssh modulspk echo ok`. Другой псевдоним можно задать переменной `MODUL_SSH_HOST`.
 
 Скрипт `scripts/deploy-remote.sh` на сервере выбирает режим по изменённым файлам:
 
