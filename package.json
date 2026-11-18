@@ -10,6 +10,7 @@
     "dev:all": "concurrently -n next,api -c blue,green \"npm run dev:fast\" \"node server/index.js\"",
     "dev:server": "node server/index.js",
     "favicons": "node scripts/generate-favicons.mjs",
+    "og-image": "node scripts/generate-og-image.mjs",
     "build": "node scripts/clean.mjs && next build",
     "build:fast": "next build",
     "deploy": "python scripts/deploy_server.py",

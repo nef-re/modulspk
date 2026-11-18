@@ -119,6 +119,29 @@ export function serviceJsonLd({
   }
 }
 
+/** Каталог услуг для страницы /uslugi: список Service со ссылками на страницы направлений. */
+export function servicesItemListJsonLd(
+  items: readonly { title: string; desc: string; link: string }[],
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `Услуги ${company.name}`,
+    numberOfItems: items.length,
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Service',
+        name: item.title,
+        description: item.desc,
+        url: `${company.siteUrl}${item.link.split('#')[0]}`,
+        provider: { '@id': ORGANIZATION_ID },
+      },
+    })),
+  }
+}
+
 export function faqJsonLd(faq: FaqItem[]) {
   return {
     '@context': 'https://schema.org',

@@ -1,10 +1,10 @@
 const FACE_IMAGES: Record<string, string> = {
-  electrics: '/cube/electrics.png',
-  ventilation: '/cube/ventilation.png',
-  smr: '/cube/smr.png',
-  design: '/cube/design.png',
-  pnr: '/cube/pnr.png',
-  production: '/cube/production.png',
+  electrics: '/cube/electrics.webp',
+  ventilation: '/cube/ventilation.webp',
+  smr: '/cube/smr.webp',
+  design: '/cube/design.webp',
+  pnr: '/cube/pnr.webp',
+  production: '/cube/production.webp',
 }
 
 export default function CubeFaceImage({

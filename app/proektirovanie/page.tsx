@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import FeatureCard from '@/components/FeatureCard'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
@@ -10,10 +11,11 @@ export const dynamic = 'force-static'
 const SERVICE_DESCRIPTION =
   'Инженерный центр ООО «Модуль» — проектирование ОВ и ЭОМ по России: BIM, экспертиза, промышленные и общественные объекты любой сложности.'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: '/proektirovanie',
   title: 'Проектирование вентиляции и электрики (ИОС, ОВ, ЭОМ) по России',
   description: SERVICE_DESCRIPTION,
-}
+})
 
 const PAGE_H1 = 'Проектирование вентиляции и электрики по России'
 

@@ -1,33 +1,48 @@
 import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import Link from 'next/link'
+import JsonLd from '@/components/JsonLd'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
 import ServiceCard from '@/components/ServiceCard'
 import { geography, maintenanceService, services, smrDocumentation } from '@/lib/site'
+import { breadcrumbJsonLd, servicesItemListJsonLd } from '@/lib/structured-data'
+
+const breadcrumbs = [
+  { href: '/', label: 'Главная' },
+  { href: '/uslugi', label: 'Услуги' },
+] as const
 
 export const dynamic = 'force-static'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: '/uslugi',
   title: 'Услуги — вентиляция, электрика, проектирование',
   description:
     'Услуги ООО «Модуль»: проектирование по России, СМР и ПНР в Томске и Томском районе, производство в Томске.',
-}
+})
 
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd([...breadcrumbs])} />
+      <JsonLd data={servicesItemListJsonLd(services)} />
       <PageHero
         label="Услуги"
         title="Инженерные услуги под ключ"
         subtitle={`Проектирование ${geography.design}, производство ${geography.production}, СМР и ПНР ${geography.smr}, обслуживание вентиляции и кондиционирования.`}
-        breadcrumbs={[
-          { href: '/', label: 'Главная' },
-          { href: '/uslugi', label: 'Услуги' },
-        ]}
+        breadcrumbs={[...breadcrumbs]}
         cta={{ href: '/kontakty', label: 'Заказать консультацию' }}
       />
 
       <section className="py-20">
+        <div className="container-site">
+          <Reveal>
+            <h2 className="mb-12 text-center text-3xl font-bold">
+              Направления работ: от проекта до обслуживания
+            </h2>
+          </Reveal>
+        </div>
         <div className="container-site grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, i) => (
             <ServiceCard key={service.id} service={service} index={i} />
@@ -36,6 +51,13 @@ export default function ServicesPage() {
       </section>
 
       <section className="bg-bg py-20">
+        <div className="container-site">
+          <Reveal>
+            <h2 className="mb-12 text-center text-3xl font-bold">
+              Сервис и сдача объекта
+            </h2>
+          </Reveal>
+        </div>
         <div className="container-site grid gap-6 lg:grid-cols-2">
           <Reveal>
             <div className="h-full rounded-2xl border border-brand/20 bg-gradient-to-br from-brand/10 to-white p-8 lg:p-10">

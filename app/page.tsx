@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import Link from 'next/link'
 import FeatureCard from '@/components/FeatureCard'
 import HeroCube from '@/components/HeroCube'
@@ -21,12 +22,13 @@ import {
 
 export const dynamic = 'force-static'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: '/',
   title: 'Вентиляция и электрика — проект, монтаж, ПНР',
   description:
     'ООО «Модуль» — проектирование по России, СМР и ПНР в Томске и Томском районе. Собственное производство вентиляционного оборудования в Томске.',
-  keywords: [...seo.defaultKeywords],
-}
+  keywords: seo.defaultKeywords,
+})
 
 export default function HomePage() {
   return (

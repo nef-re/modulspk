@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import Link from 'next/link'
 import LegalNav from '@/components/LegalNav'
 import PageHero from '@/components/PageHero'
@@ -8,10 +9,11 @@ import { company } from '@/lib/site'
 
 export const dynamic = 'force-static'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: '/consent',
   title: 'Согласие на обработку персональных данных',
   description: `Текст согласия на обработку персональных данных ${company.name}.`,
-}
+})
 
 export default function ConsentPage() {
   return (

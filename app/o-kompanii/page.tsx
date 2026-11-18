@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import JsonLd from '@/components/JsonLd'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
@@ -12,11 +13,12 @@ const breadcrumbs = [
   { href: '/o-kompanii', label: 'О компании' },
 ] as const
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: '/o-kompanii',
   title: 'О компании — инженерные системы с 2004 года',
   description:
     'ООО «Модуль» — проектирование, производство и монтаж инженерных систем. Более 150 объектов с 2004 года, собственное производство в Томске.',
-}
+})
 
 export default function AboutPage() {
   return (

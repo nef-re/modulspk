@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import GradientOrbs from '@/components/GradientOrbs'
 import Header from '@/components/Header'
 import JsonLd from '@/components/JsonLd'
+import { OG_IMAGE } from '@/lib/seo'
 import { company, seo } from '@/lib/site'
 import {
   hvacBusinessJsonLd,
@@ -30,7 +31,8 @@ export const metadata: Metadata = {
   description: `${company.name} — проектирование по России, СМР и ПНР в Томске и Томском районе. Собственное производство вентиляционного оборудования в Томске.`,
   keywords: [...seo.defaultKeywords],
   category: 'business',
-  alternates: { canonical: company.siteUrl },
+  // canonical задаётся на каждой странице через pageMetadata() (lib/seo.ts):
+  // общий canonical в layout склеивал все страницы с главной.
   robots: {
     index: true,
     follow: true,
@@ -49,11 +51,13 @@ export const metadata: Metadata = {
     siteName: company.shortName,
     title: `Вентиляция и электрика — проект, СМР, ПНР | ${company.shortName}`,
     description: `${company.name} — проектирование по России, монтаж и ПНР в Томске и Томском районе.`,
+    images: [OG_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: `Вентиляция и электрика — ${company.shortName}`,
     description: `Проектирование по России, монтаж и ПНР. Собственное производство в Томске.`,
+    images: [OG_IMAGE.url],
   },
   icons: {
     icon: [

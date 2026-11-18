@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import Image from 'next/image'
 
 type ProjectGalleryProps = {
@@ -13,6 +13,70 @@ type ProjectGalleryProps = {
 
 function isVideo(src: string) {
   return src.toLowerCase().endsWith('.mp4') || src.toLowerCase().endsWith('.webm')
+}
+
+/** Кадр-превью рядом с видео: `name.mp4` → `name-poster.jpg`. */
+function videoPoster(src: string) {
+  return src.replace(/\.(mp4|webm)$/i, '-poster.jpg')
+}
+
+/**
+ * Видео грузится и играет только в зоне видимости — не тянет мегабайты
+ * при открытии страницы и не крутится вне экрана.
+ */
+function LazyVideo({
+  src,
+  active,
+  className,
+  style,
+}: {
+  src: string
+  active: boolean
+  className: string
+  style?: CSSProperties
+}) {
+  const ref = useRef<HTMLVideoElement>(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setVisible(true)
+      return undefined
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { rootMargin: '200px 0px' },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    if (visible && active) {
+      el.play().catch(() => {})
+    } else {
+      el.pause()
+    }
+  }, [visible, active])
+
+  return (
+    <video
+      ref={ref}
+      src={visible ? src : undefined}
+      poster={videoPoster(src)}
+      className={className}
+      style={style}
+      muted
+      loop
+      playsInline
+      controls={false}
+      preload="none"
+      aria-hidden="true"
+    />
+  )
 }
 
 export default function ProjectGallery({
@@ -85,17 +149,12 @@ export default function ProjectGallery({
 
             if (isVideo(photo)) {
               return (
-                <video
+                <LazyVideo
                   key={`${title}-${idx}`}
                   src={photo}
+                  active={isActive}
                   className={`absolute inset-0 h-full w-full ${cls}`}
                   style={mediaStyle}
-                  muted
-                  loop
-                  playsInline
-                  autoPlay={isActive}
-                  controls={false}
-                  preload="metadata"
                 />
               )
             }

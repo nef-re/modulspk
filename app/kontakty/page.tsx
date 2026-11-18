@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import Image from 'next/image'
 import ContactForm from '@/components/ContactForm'
 import DgisMap from '@/components/DgisMap'
@@ -19,10 +20,11 @@ const breadcrumbs = [
   { href: '/kontakty', label: 'Контакты' },
 ] as const
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: '/kontakty',
   title: 'Контакты — заказать монтаж вентиляции в Томске',
   description: CONTACTS_DESCRIPTION,
-}
+})
 
 export default function ContactsPage() {
   const faq = faqByPage.kontakty

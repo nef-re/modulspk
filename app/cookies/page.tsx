@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo'
 import Link from 'next/link'
 import LegalNav from '@/components/LegalNav'
 import PageHero from '@/components/PageHero'
@@ -8,10 +9,11 @@ import { company } from '@/lib/site'
 
 export const dynamic = 'force-static'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: '/cookies',
   title: 'Политика использования cookie',
   description: `Информация об использовании файлов cookie на сайте ${company.domain}.`,
-}
+})
 
 export default function CookiesPage() {
   return (
