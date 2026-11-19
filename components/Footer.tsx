@@ -24,9 +24,9 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="mb-4 text-xs font-bold uppercase tracking-[0.1em] text-white/90">
+          <h2 className="mb-4 text-xs font-bold uppercase tracking-[0.1em] text-white/90">
             Разделы
-          </h4>
+          </h2>
           <ul className="space-y-2.5 text-sm text-footer-muted">
             {navLinks.map((link) => (
               <li key={link.href}>
@@ -39,9 +39,9 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="mb-4 text-xs font-bold uppercase tracking-[0.1em] text-white/90">
+          <h2 className="mb-4 text-xs font-bold uppercase tracking-[0.1em] text-white/90">
             Услуги
-          </h4>
+          </h2>
           <ul className="space-y-2.5 text-sm text-footer-muted">
             <li>
               <Link href="/proektirovanie" className="hover:text-white">
@@ -72,9 +72,9 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="mb-4 text-xs font-bold uppercase tracking-[0.1em] text-white/90">
+          <h2 className="mb-4 text-xs font-bold uppercase tracking-[0.1em] text-white/90">
             Контакты
-          </h4>
+          </h2>
           <div className="space-y-3 text-sm">
             <a href={company.phoneHref} className="block text-lg font-bold text-white hover:underline">
               {company.phone}

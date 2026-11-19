@@ -9,9 +9,12 @@ const FACE_IMAGES: Record<string, string> = {
 
 export default function CubeFaceImage({
   icon,
+  alt = '',
   className = '',
 }: {
   icon: string
+  /** Подпись грани (пусто — если рядом уже есть текстовый заголовок). */
+  alt?: string
   className?: string
 }) {
   const src = FACE_IMAGES[icon]
@@ -22,7 +25,7 @@ export default function CubeFaceImage({
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
-        alt=""
+        alt={alt}
         className="cube-face-image"
         draggable={false}
         decoding="async"

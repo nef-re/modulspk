@@ -213,9 +213,8 @@ export default function InteractiveCube({
               <div
                 key={pos}
                 className={`interactive-cube__face interactive-cube__face--${pos}`}
-                aria-label={data.title}
               >
-                <CubeFaceImage icon={data.icon} />
+                <CubeFaceImage icon={data.icon} alt={data.title} />
               </div>
             )
           })}

@@ -111,21 +111,9 @@ export default function ProjectGallery({
       className={`relative overflow-hidden rounded-t-2xl bg-[#eaf2ff] ${
         hasPhotos ? 'max-md:cursor-pointer' : ''
       }`}
+      // Тап по карточке на мобильных; для клавиатуры и скринридеров — кнопка ниже.
+      // role="button" на контейнере не ставим: внутри заголовок и кнопки (невалидный HTML).
       onClick={hasPhotos ? () => setDetailsOpen((open) => !open) : undefined}
-      onKeyDown={
-        hasPhotos
-          ? (e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault()
-                setDetailsOpen((open) => !open)
-              }
-            }
-          : undefined
-      }
-      role={hasPhotos ? 'button' : undefined}
-      tabIndex={hasPhotos ? 0 : undefined}
-      aria-expanded={hasPhotos ? detailsOpen : undefined}
-      aria-label={hasPhotos ? `${title}. Нажмите, чтобы ${detailsOpen ? 'скрыть' : 'показать'} описание` : undefined}
     >
       <div className="relative aspect-[16/8]">
         {hasPhotos ? (
@@ -176,14 +164,24 @@ export default function ProjectGallery({
           <div className="absolute inset-0 bg-gradient-to-br from-brand to-[#4c9aff]" />
         )}
 
-        {hasPhotos && !detailsOpen && (
-          <span
-            className="pointer-events-none absolute inset-x-0 bottom-3 z-[15] flex justify-center md:hidden"
-            aria-hidden
-          >
-            <span className="rounded-full bg-black/35 px-3 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">
-              Нажмите для описания
-            </span>
+        {hasPhotos && (
+          <span className="absolute inset-x-0 bottom-3 z-[15] flex justify-center md:hidden">
+            <button
+              type="button"
+              aria-expanded={detailsOpen}
+              aria-label={`${detailsOpen ? 'Скрыть' : 'Показать'} описание: ${title}`}
+              onClick={(e) => {
+                e.stopPropagation()
+                setDetailsOpen((open) => !open)
+              }}
+              className={
+                detailsOpen
+                  ? 'sr-only focus:not-sr-only'
+                  : 'rounded-full bg-black/35 px-3 py-1 text-[11px] font-semibold text-white backdrop-blur-sm'
+              }
+            >
+              {detailsOpen ? 'Скрыть описание' : 'Нажмите для описания'}
+            </button>
           </span>
         )}
 

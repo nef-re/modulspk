@@ -16,7 +16,7 @@ export default function FaqSection({
         <Reveal>
           <h2 className="text-center text-2xl font-bold lg:text-3xl">{title}</h2>
         </Reveal>
-        <dl className="mt-10 space-y-4">
+        <div className="mt-10 space-y-4">
           {items.map((item, i) => (
             <Reveal key={item.q} delay={i * 50}>
               <details className="group rounded-2xl border border-border bg-white px-5 py-4 shadow-sm open:shadow-md">
@@ -31,11 +31,11 @@ export default function FaqSection({
                     </span>
                   </span>
                 </summary>
-                <dd className="mt-3 text-sm leading-relaxed text-text-muted">{item.a}</dd>
+                <div className="mt-3 text-sm leading-relaxed text-text-muted">{item.a}</div>
               </details>
             </Reveal>
           ))}
-        </dl>
+        </div>
       </div>
     </section>
   )

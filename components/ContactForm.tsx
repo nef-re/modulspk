@@ -134,12 +134,13 @@ export default function ContactForm() {
           className={inputClass}
         />
       </label>
-      <label className="block space-y-1.5 text-sm">
+      <div className="block space-y-1.5 text-sm">
         <span className="font-semibold text-text-muted">Прикрепить файлы</span>
         <input
           ref={fileInputRef}
           type="file"
           name="attachments"
+          aria-label="Прикрепить файлы"
           multiple
           accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.zip,.rar,.dwg"
           className="hidden"
@@ -154,12 +155,13 @@ export default function ContactForm() {
             Выбрать файлы
           </button>
           <div
+            onClick={() => fileInputRef.current?.click()}
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => {
               e.preventDefault()
               mergeFiles(Array.from(e.dataTransfer.files ?? []))
             }}
-            className="flex min-h-11 items-center rounded-xl border border-dashed border-border bg-white px-4 text-sm text-text-muted"
+            className="flex min-h-11 cursor-pointer items-center rounded-xl border border-dashed border-border bg-white px-4 text-sm text-text-muted"
           >
             Перетащите файлы сюда
           </div>
@@ -179,7 +181,7 @@ export default function ContactForm() {
             </ul>
           </div>
         )}
-      </label>
+      </div>
 
       <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-border bg-bg px-4 py-3 text-sm">
         <input
