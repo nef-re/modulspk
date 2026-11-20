@@ -4,7 +4,15 @@ import FaqSection from '@/components/FaqSection'
 import JsonLd from '@/components/JsonLd'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
-import { formatRub, formatUpdated, priceList } from '@/lib/prices'
+import {
+  formatRub,
+  formatUpdated,
+  priceSections,
+  PRICES_DISCLAIMER_SHORT,
+  PRICES_UPDATED,
+  pricesDisclaimer,
+  VAT_RATE,
+} from '@/lib/prices'
 import { pageMetadata } from '@/lib/seo'
 import { company, type FaqItem } from '@/lib/site'
 import { breadcrumbJsonLd, faqJsonLd, priceCatalogJsonLd } from '@/lib/structured-data'
@@ -18,14 +26,15 @@ const breadcrumbs = [
   { href: PATH, label: 'Цены' },
 ] as const
 
-const vat = priceList.vatRate
+const vat = VAT_RATE
+const ductPrice = priceSections.flatMap((s) => s.items).find((i) => i.name === 'Монтаж воздуховодов')?.price
 
 export const metadata: Metadata = pageMetadata({
   path: PATH,
   title: 'Цены на монтаж вентиляции, кондиционеров и электрики в Томске',
-  description: `Прайс ${company.name} на работы в Томске: монтаж воздуховодов от ${formatRub(
-    priceList.sections.flatMap((s) => s.items).find((i) => i.name === 'Монтаж воздуховодов')?.price ?? 0,
-  )} за м², вентустановок, кондиционеров, электромонтаж, пусконаладка. Цены с НДС ${vat}%.`,
+  description: `Прайс ${company.name} на работы в Томске: монтаж воздуховодов${
+    ductPrice ? ` от ${formatRub(ductPrice)} за м²` : ''
+  }, вентустановок, кондиционеров, электромонтаж, пусконаладка. Цены с НДС ${vat}%.`,
 })
 
 const faq: FaqItem[] = [
@@ -52,7 +61,8 @@ const faq: FaqItem[] = [
 ]
 
 export default function PricesPage() {
-  const { sections, updated } = priceList
+  const sections = priceSections
+  const updated = PRICES_UPDATED
 
   return (
     <>
@@ -69,6 +79,9 @@ export default function PricesPage() {
 
       <section className="border-b border-border bg-white py-6">
         <div className="container-site">
+          <p className="mb-4 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-text">
+            {PRICES_DISCLAIMER_SHORT} Цены актуальны на {formatUpdated(updated)}.
+          </p>
           <nav aria-label="Разделы прайса" className="flex flex-wrap gap-2">
             {sections.map((section) => (
               <a
@@ -136,10 +149,11 @@ export default function PricesPage() {
             </div>
           </Reveal>
 
-          <p className="text-xs text-text-muted">
-            Цены актуальны на {formatUpdated(updated)}, указаны с НДС {vat}% и не являются публичной офертой.
-            Итоговая стоимость определяется коммерческим предложением.
-          </p>
+          <div className="space-y-2 border-t border-border pt-6 text-xs leading-relaxed text-text-muted">
+            {pricesDisclaimer(updated, vat).map((paragraph) => (
+              <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+            ))}
+          </div>
         </div>
       </section>
 
