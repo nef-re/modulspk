@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useRef, useState, type FormEvent } from 'react'
 import { FILE_UPLOAD_LIMITS } from '@/lib/contact-upload-config'
+import { reachGoal, YM_GOALS } from '@/lib/analytics'
 import { submitContact } from '@/lib/api'
 import { legal } from '@/lib/legal'
 import { Button } from '@/components/ui/Button'
@@ -72,6 +73,7 @@ export default function ContactForm() {
       data.set('personalDataConsent', 'true')
 
       await submitContact(data)
+      reachGoal(YM_GOALS.leadForm)
       setSent(true)
       form.reset()
       setConsent(false)

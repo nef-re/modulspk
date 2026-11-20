@@ -2,7 +2,7 @@
 
 import Script from 'next/script'
 import { useEffect, useState } from 'react'
-import { isYmEnabled, YM_COUNTER_ID } from '@/lib/analytics'
+import { goalForHref, isYmEnabled, reachGoal, YM_COUNTER_ID } from '@/lib/analytics'
 import {
   COOKIE_CONSENT_EVENT,
   hasAnalyticsConsent,
@@ -25,6 +25,20 @@ export default function YandexMetrika() {
     window.addEventListener(COOKIE_CONSENT_EVENT, onConsent)
     return () => window.removeEventListener(COOKIE_CONSENT_EVENT, onConsent)
   }, [])
+
+  // Цели по кликам на телефон / email / мессенджеры — одним обработчиком на весь сайт,
+  // чтобы не размечать каждую ссылку отдельно.
+  useEffect(() => {
+    if (!enabled) return undefined
+    const onClick = (event: MouseEvent) => {
+      const link = (event.target as Element | null)?.closest?.('a[href]')
+      if (!link) return
+      const goal = goalForHref(link.getAttribute('href') ?? '')
+      if (goal) reachGoal(goal)
+    }
+    document.addEventListener('click', onClick, { capture: true })
+    return () => document.removeEventListener('click', onClick, { capture: true })
+  }, [enabled])
 
   if (!enabled || !isYmEnabled()) return null
 
