@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { goalForHref, isYmEnabled, reachGoal, YM_COUNTER_ID } from '@/lib/analytics'
 import {
   COOKIE_CONSENT_EVENT,
-  hasAnalyticsConsent,
+  isMetrikaAllowed,
   type CookieConsentValue,
 } from '@/lib/cookie-consent'
 
@@ -15,11 +15,11 @@ export default function YandexMetrika() {
   useEffect(() => {
     if (!isYmEnabled()) return undefined
 
-    setEnabled(hasAnalyticsConsent())
+    setEnabled(isMetrikaAllowed())
 
     const onConsent = (event: Event) => {
       const value = (event as CustomEvent<CookieConsentValue>).detail
-      setEnabled(value === 'accepted')
+      setEnabled(value !== 'essential_only')
     }
 
     window.addEventListener(COOKIE_CONSENT_EVENT, onConsent)

@@ -15,8 +15,17 @@ export function getCookieConsent(): CookieConsentValue | null {
   }
 }
 
+/** Явное согласие («Принять») — нужно для Google Analytics (трансграничная передача). */
 export function hasAnalyticsConsent(): boolean {
   return getCookieConsent() === 'accepted'
+}
+
+/**
+ * Яндекс.Метрика работает по уведомлению: до выбора в баннере и после «Принять».
+ * Отключается только явным отказом («Только необходимые»).
+ */
+export function isMetrikaAllowed(): boolean {
+  return getCookieConsent() !== 'essential_only'
 }
 
 export function notifyCookieConsent(value: CookieConsentValue) {
