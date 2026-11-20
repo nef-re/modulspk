@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Manrope } from 'next/font/google'
 import CookieConsent from '@/components/CookieConsent'
 import YandexMetrika from '@/components/YandexMetrika'
-import GoogleTagManager from '@/components/GoogleTagManager'
 import Footer from '@/components/Footer'
 import GradientOrbs from '@/components/GradientOrbs'
 import Header from '@/components/Header'
@@ -86,7 +85,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </div>
         <CookieConsent />
         <YandexMetrika />
-        <GoogleTagManager />
       </body>
     </html>
   )

@@ -42,9 +42,8 @@ export default function CookieConsent() {
             Использование файлов cookie
           </p>
           <p id="cookie-consent-desc" className="mt-1 text-sm text-text-muted">
-            Сайт использует cookie для работы и Яндекс.Метрику для статистики посещений. По кнопке
-            «Принять» также подключается Google Analytics. «Только необходимые» — отключить
-            аналитику. Подробнее — в{' '}
+            Сайт использует cookie для работы и Яндекс.Метрику для статистики посещений.
+            «Только необходимые» — отключить аналитику. Подробнее — в{' '}
             <Link href={legal.links.cookies} className="text-brand underline-offset-2 hover:underline">
               политике использования cookie
             </Link>{' '}

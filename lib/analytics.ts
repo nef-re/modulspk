@@ -5,13 +5,6 @@ export function isYmEnabled(): boolean {
   return Number.isFinite(YM_COUNTER_ID) && YM_COUNTER_ID > 0
 }
 
-/** Контейнер Google Tag Manager (в нём настраивается Google Analytics 4). */
-export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? 'GTM-P4F5383F'
-
-export function isGtmEnabled(): boolean {
-  return /^GTM-[A-Z0-9]+$/.test(GTM_ID)
-}
-
 /**
  * Цели Метрики (тип «JavaScript-событие», идентификатор = значение):
  * создаются в интерфейсе Метрики → Настройки → Цели.
@@ -31,19 +24,13 @@ export type YmGoal = (typeof YM_GOALS)[keyof typeof YM_GOALS]
 
 type YmFn = (id: number, method: 'reachGoal', goal: string) => void
 
-/**
- * Отправить цель в Метрику и событие с тем же именем в Google Tag Manager
- * (в GTM — триггер «Специальное событие» с этим именем).
- * Ничего не делает, если счётчики не загружены (нет согласия на cookie).
- */
+/** Отправить цель в Метрику. Ничего не делает, если счётчик не загружен (отказ в баннере cookie). */
 export function reachGoal(goal: YmGoal): void {
-  if (typeof window === 'undefined') return
-  const w = window as unknown as { ym?: YmFn; dataLayer?: unknown[]; google_tag_manager?: unknown }
+  if (typeof window === 'undefined' || !isYmEnabled()) return
+  const ym = (window as unknown as { ym?: YmFn }).ym
+  if (typeof ym !== 'function') return
   try {
-    if (isYmEnabled() && typeof w.ym === 'function') w.ym(YM_COUNTER_ID, 'reachGoal', goal)
-    if (isGtmEnabled() && w.google_tag_manager && Array.isArray(w.dataLayer)) {
-      w.dataLayer.push({ event: goal })
-    }
+    ym(YM_COUNTER_ID, 'reachGoal', goal)
   } catch {
     // аналитика не должна ломать сайт
   }
