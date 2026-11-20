@@ -6,7 +6,7 @@ export function isYmEnabled(): boolean {
 }
 
 /** Контейнер Google Tag Manager (в нём настраивается Google Analytics 4). */
-export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? 'GTM-TDJ886WW'
+export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? 'GTM-P4F5383F'
 
 export function isGtmEnabled(): boolean {
   return /^GTM-[A-Z0-9]+$/.test(GTM_ID)
