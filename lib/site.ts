@@ -139,6 +139,7 @@ export const navLinks = [
   { href: '/proektirovanie', label: 'Проектирование' },
   { href: '/smr', label: 'СМР' },
   { href: '/proizvodstvo', label: 'Производство' },
+  { href: '/ceny', label: 'Цены' },
   { href: '/o-kompanii', label: 'О компании' },
   { href: '/kontakty', label: 'Контакты' },
 ] as const

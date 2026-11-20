@@ -5,6 +5,7 @@
 ## Услуги
 - Главная: https://modulspk.ru/
 - Все услуги: https://modulspk.ru/uslugi
+- Цены на работы (от, с НДС): https://modulspk.ru/ceny
 - Проектирование: https://modulspk.ru/proektirovanie
 - СМР и ПНР: https://modulspk.ru/smr
 - Обслуживание и ремонт вентиляции и кондиционирования: https://modulspk.ru/smr#obsluzhivanie

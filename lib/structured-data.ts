@@ -142,6 +142,37 @@ export function servicesItemListJsonLd(
   }
 }
 
+/** Прайс (/ceny): каталог услуг с ценами «от», с НДС. */
+export function priceCatalogJsonLd(
+  sections: readonly { title: string; items: readonly { name: string; unit: string; price: number }[] }[],
+  url: string,
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'OfferCatalog',
+    name: `Цены на работы ${company.name}`,
+    url: `${company.siteUrl}${url}`,
+    provider: { '@id': ORGANIZATION_ID },
+    itemListElement: sections.map((section) => ({
+      '@type': 'OfferCatalog',
+      name: section.title,
+      itemListElement: section.items.map((item) => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: item.name, provider: { '@id': ORGANIZATION_ID } },
+        priceCurrency: 'RUB',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          minPrice: item.price,
+          priceCurrency: 'RUB',
+          unitText: item.unit,
+          valueAddedTaxIncluded: true,
+        },
+        areaServed: { '@type': 'City', name: company.city },
+      })),
+    })),
+  }
+}
+
 export function faqJsonLd(faq: FaqItem[]) {
   return {
     '@context': 'https://schema.org',

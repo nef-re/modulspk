@@ -10,10 +10,20 @@ import PhoneContactLink from '@/components/PhoneContactLink'
 import { Button } from '@/components/ui/Button'
 import { headerCta, navLinks } from '@/lib/site'
 
-function NavLinks({ pathname, onNavigate }: { pathname: string; onNavigate?: () => void }) {
+function NavLinks({
+  pathname,
+  onNavigate,
+  hideHome = false,
+}: {
+  pathname: string
+  onNavigate?: () => void
+  /** В шапке на десктопе «Главная» не нужна — на неё ведёт логотип; так меню помещается от 1024 px. */
+  hideHome?: boolean
+}) {
+  const links = hideHome ? navLinks.filter((link) => link.href !== '/') : navLinks
   return (
     <ul className="flex flex-col gap-1 lg:flex-row lg:flex-nowrap lg:items-center lg:justify-center lg:gap-x-0 xl:gap-x-1">
-      {navLinks.map((link) => {
+      {links.map((link) => {
         const active =
           link.href === '/' ? pathname === '/' : pathname.startsWith(link.href)
         return (
@@ -21,7 +31,7 @@ function NavLinks({ pathname, onNavigate }: { pathname: string; onNavigate?: () 
             <Link
               href={link.href}
               onClick={onNavigate}
-              className={`block whitespace-nowrap px-2.5 py-2.5 lg:px-3 lg:py-2 xl:px-3.5 ${
+              className={`block whitespace-nowrap px-2.5 py-2.5 lg:px-2 lg:py-2 xl:px-3.5 ${
                 active ? 'nav-link--active nav-link' : 'nav-link'
               }`}
             >
@@ -119,7 +129,7 @@ export default function Header() {
             className="hidden min-w-0 flex-1 flex-row items-center justify-center lg:flex"
             aria-label="Основная навигация"
           >
-            <NavLinks pathname={pathname} />
+            <NavLinks pathname={pathname} hideHome />
           </nav>
 
           <div className="hidden shrink-0 items-center gap-2.5 lg:flex">

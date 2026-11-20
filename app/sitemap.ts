@@ -14,6 +14,7 @@ const routes: {
   { path: '/ventilyaciya', changeFrequency: 'monthly', priority: 0.85 },
   { path: '/elektrika', changeFrequency: 'monthly', priority: 0.85 },
   { path: '/o-kompanii', changeFrequency: 'monthly', priority: 0.8 },
+  { path: '/ceny', changeFrequency: 'weekly', priority: 0.9 },
   { path: '/kontakty', changeFrequency: 'monthly', priority: 0.9 },
   { path: '/privacy', changeFrequency: 'yearly', priority: 0.3 },
   { path: '/cookies', changeFrequency: 'yearly', priority: 0.3 },
